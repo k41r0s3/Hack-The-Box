@@ -49,7 +49,7 @@ Hack-The-Box/
 
 ## 🔗 Connect
 
-- **HTB Profile:** [k41r0s3](https://app.hackthebox.com/profile/k41r0s3)
+- **HTB Profile:** [k41r0s3](https://app.hackthebox.com/public/users/2406865)
 - **GitHub:** [k41r0s3](https://github.com/k41r0s3)
 
 ---
