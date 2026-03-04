@@ -1,5 +1,4 @@
 # 🧠 Hack The Box — Writeups
-
 > **Author:** k41r0s3
 > **Platform:** [Hack The Box](https://www.hackthebox.com/)
 
@@ -29,6 +28,7 @@ Hack-The-Box/
 | # | Machine | Difficulty | OS | Category | Date |
 |---|---------|------------|-----|----------|------|
 | 1 | [Planning](./Write-ups/Planning/README.md) | Easy | Linux | Web | March 3, 2026 |
+| 2 | [Reset](./Write-ups/Reset/README.md) | Medium | Linux | Web / Network | March 4, 2026 |
 
 ---
 
@@ -38,12 +38,15 @@ Hack-The-Box/
 |------|---------|
 | `nmap` | Port scanning and service enumeration |
 | `ffuf` | Directory and subdomain fuzzing |
+| `gobuster` | Directory and vhost enumeration |
 | `curl` | Web requests and API interaction |
 | `whatweb` | Web technology fingerprinting |
 | `netcat` | Reverse shell listener |
 | `LinPEAS` | Privilege escalation enumeration |
 | `BurpSuite` | Web traffic interception and analysis |
 | `Metasploit` | Exploitation framework |
+| `rsh-redone-client` | BSD r-services client |
+| `jq` | JSON parsing |
 
 ---
 
@@ -54,6 +57,5 @@ Hack-The-Box/
 
 ---
 
-*Happy Hacking! 🚀*
-
+*Happy Hacking! 🚀*  
 *k41r0s3*
