@@ -1,4 +1,5 @@
 # 🧠 Hack The Box — Writeups
+
 > **Author:** k41r0s3
 > **Platform:** [Hack The Box](https://www.hackthebox.com/)
 
@@ -29,6 +30,7 @@ Hack-The-Box/
 |---|---------|------------|-----|----------|------|
 | 1 | [Planning](./Write-ups/Planning/README.md) | Easy | Linux | Web | March 3, 2026 |
 | 2 | [Reset](./Write-ups/Reset/README.md) | Medium | Linux | Web / Network | March 4, 2026 |
+| 3 | [Data](./Write-ups/Data/README.md) | Easy | Linux | Web / Network | March 7, 2026 |
 
 ---
 
