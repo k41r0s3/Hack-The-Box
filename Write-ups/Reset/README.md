@@ -1,7 +1,7 @@
 # Reset — HTB Writeup
 > **Platform:** HackTheBox
 > **Author:** k41r0s3
-> **Difficulty:** Medium
+> **Difficulty:** Easy
 > **Category:** Web / Network
 ---
 
