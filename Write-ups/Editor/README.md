@@ -221,7 +221,7 @@ The `xwiki` system user wouldn't be useful (service account). But `oliver` is a 
 
 ```bash
 ssh oliver@10.129.231.23
-# Password: theEd1t0rTeam99
+# Password: 
 ```
 
 **Success.** We are now `oliver@editor`.
@@ -229,7 +229,7 @@ ssh oliver@10.129.231.23
 ```bash
 # Grab user flag
 cat /home/oliver/user.txt
-# 9f09c303fc99746add10cf29d7ef154e
+
 ```
 
 ---
@@ -359,7 +359,7 @@ meterpreter > getuid
 Server username: root
 
 meterpreter > cat /root/root.txt
-d4d4d8858e8ecf59216c7dac666ea776
+
 ```
 
 ---
