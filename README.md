@@ -30,7 +30,7 @@ Hack-The-Box/
 | 2 | [Reset](./Write-ups/Reset/README.md) | Easy | Linux | Web / Network | March 4, 2026 |
 | 3 | [Data](./Write-ups/Data/README.md) | Easy | Linux | Web / Network | March 7, 2026 |
 | 4 | [Browsed](./Write-ups/Browsed/README.md) | Medium | Linux | Web / PrivEsc | March 9, 2026 |
-| 5 | [Editor](./Write-ups/Editor/README.md) | Medium | Linux | Web / PrivEsc | March 10, 2026 |
+| 5 | [Editor](./Write-ups/Editor/README.md) | Easy | Linux | Web / PrivEsc | March 10, 2026 |
 
 ---
 
