@@ -21,7 +21,7 @@
 
 ## Overview & Attack Chain
 
-Editor is a medium-difficulty Linux box built around a realistic developer environment — a web-based code editor fronting a self-hosted XWiki instance. The attack chain follows a logical progression from public exploit to credential reuse to a known Netdata SUID vulnerability:
+Editor is a Easy-difficulty Linux box built around a realistic developer environment — a web-based code editor fronting a self-hosted XWiki instance. The attack chain follows a logical progression from public exploit to credential reuse to a known Netdata SUID vulnerability:
 
 ```
 Port Scan
