@@ -1,4 +1,4 @@
-# Data — CTF Writeup
+# Data — HTB Writeup
 
 > **Platform:** HackTheBox
 > **Author:** k41r0s3
