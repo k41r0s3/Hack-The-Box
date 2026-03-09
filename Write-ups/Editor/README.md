@@ -3,7 +3,6 @@
 > **Difficulty:** Medium  
 > **OS:** Linux (Ubuntu 22.04)  
 > **IP:** 10.129.231.23  
-> **Flags:** user.txt ✅ | root.txt ✅
 
 ---
 
@@ -362,15 +361,6 @@ Server username: root
 meterpreter > cat /root/root.txt
 d4d4d8858e8ecf59216c7dac666ea776
 ```
-
----
-
-## Flags
-
-| Flag | Value |
-|------|-------|
-| **user.txt** | `9f09c303fc99746add10cf29d7ef154e` |
-| **root.txt** | `d4d4d8858e8ecf59216c7dac666ea776` |
 
 ---
 
