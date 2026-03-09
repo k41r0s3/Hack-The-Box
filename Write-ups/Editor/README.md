@@ -15,8 +15,7 @@
 5. [Foothold — CVE-2025-24893 (XWiki RCE)](#foothold--cve-2025-24893-xwiki-rce)
 6. [Credential Discovery & Lateral Movement](#credential-discovery--lateral-movement)
 7. [Privilege Escalation — CVE-2024-32019 (Netdata ndsudo)](#privilege-escalation--cve-2024-32019-netdata-ndsudo)
-8. [Flags](#flags)
-9. [Lessons Learned](#lessons-learned)
+8. [Lessons Learned](#lessons-learned)
 
 ---
 
