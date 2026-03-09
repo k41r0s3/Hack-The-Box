@@ -1,4 +1,4 @@
-# Browsed — CTF Writeup
+# Browsed — HTB Writeup
 
 > **Platform:** HackTheBox
 > **Author:** k41r0s3
