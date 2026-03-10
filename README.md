@@ -13,6 +13,7 @@ These writeups are for **educational purposes only**. All machines documented he
 ---
 
 ## 📁 Repository Structure
+
 ```
 Hack-The-Box/
 └── Write-ups/
@@ -31,6 +32,7 @@ Hack-The-Box/
 | 3 | [Data](./Write-ups/Data/README.md) | Easy | Linux | Web / Network | March 7, 2026 |
 | 4 | [Browsed](./Write-ups/Browsed/README.md) | Medium | Linux | Web / PrivEsc | March 9, 2026 |
 | 5 | [Editor](./Write-ups/Editor/README.md) | Easy | Linux | Web / PrivEsc | March 10, 2026 |
+| 6 | [Artificial](./Write-ups/Artifical/Artificial/README.md) | Easy | Linux | AI / PrivEsc | March 11, 2026 |
 
 ---
 
@@ -49,6 +51,8 @@ Hack-The-Box/
 | `Metasploit` | Exploitation framework |
 | `rsh-redone-client` | BSD r-services client |
 | `jq` | JSON parsing |
+| `hashcat` | Password hash cracking |
+| `Docker` | Isolated exploit build environments |
 
 ---
 
