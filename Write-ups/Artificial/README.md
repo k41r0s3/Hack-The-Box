@@ -1,6 +1,6 @@
 # HackTheBox — Artificial
 
-**Difficulty:** Easy | **OS:** Linux | **IP:** <TARGET-IP>  
+**Difficulty:** Easy | **OS:** Linux | **IP:** 10.129.232.51 
 **Topics:** TensorFlow Keras RCE · SQLite Credential Dump · Backrest/Restic Privesc
 
 ---
@@ -9,7 +9,7 @@
 
 | Field | Detail |
 |---|---|
-| Target IP | <TARGET-IP> |
+| Target IP | 10.129.232.51 |
 | Hostname | artificial.htb |
 
 ---
