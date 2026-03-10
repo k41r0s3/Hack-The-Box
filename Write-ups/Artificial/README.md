@@ -11,9 +11,6 @@
 |---|---|
 | Target IP | <TARGET-IP> |
 | Hostname | artificial.htb |
-| Attacker IP (tun0) | <ATTACKER-IP> |
-| User Flag | `<user-flag>` |
-| Root Flag | `<root-flag>` |
 
 ---
 
