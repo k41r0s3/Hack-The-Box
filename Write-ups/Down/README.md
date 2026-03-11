@@ -1,18 +1,14 @@
 # **HackTheBox — Down | Full Writeup**
 
 > **Platform:** Hack The Box
->
 > **Author:** k41r0s3
->
 > **Difficulty:** Easy
->
 > **Category:** Web / Linux
->
 > **Date:** March 12, 2026
 
 ---
 
-## TL;DR
+## Summary
 
 Discovered a verbose SSRF vulnerability on an "Is it down?" web checker. The app used system `curl` under the hood, which was exploited by passing two URLs — one to satisfy the `http://` filter, and a `file://` URL to read local files. Read the PHP source to discover a hidden `?expertmode=tcp` feature running `nc`. Exploited a parameter injection bug in the port field (validate-one-use-another) to get a reverse shell as `www-data`. Found a `pswm` password manager vault in `aleks`' home directory, brute-forced the master password with `rockyou.txt`, decrypted credentials, SSH'd in, and escalated to root via `sudo`.
 
@@ -88,8 +84,7 @@ Discovered a verbose SSRF vulnerability on an "Is it down?" web checker. The app
 6. [Parameter Injection → Reverse Shell](#parameter-injection--reverse-shell)
 7. [Privilege Escalation — www-data → aleks](#privilege-escalation--www-data--aleks)
 8. [Privilege Escalation — aleks → root](#privilege-escalation--aleks--root)
-9. [Flags](#flags)
-10. [Key Takeaways](#key-takeaways)
+9. [Key Takeaways](#key-takeaways)
 
 ---
 
@@ -396,7 +391,6 @@ export TERM=xterm
 
 ```bash
 cat /var/www/html/user_aeT1xa.txt
-# d4bc94b386ef7c8113698a8c4951cacd
 ```
 
 ---
@@ -487,15 +481,6 @@ The presence of `.sudo_as_admin_successful` in aleks' home confirmed sudo access
 sudo su
 cat /root/root.txt
 ```
-
----
-
-## Flags
-
-| Flag | Value |
-| --- | --- |
-| User | `d4bc94b386ef7c8113698a8c4951cacd` |
-| Root | `87bb9869a311b8abb5fb4d3c7248fdcb` |
 
 ---
 
