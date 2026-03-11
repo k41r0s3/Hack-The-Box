@@ -1,4 +1,5 @@
 # 🧠 Hack The Box — Writeups
+
 > **Author:** k41r0s3
 > **Platform:** [Hack The Box](https://www.hackthebox.com/)
 
@@ -33,6 +34,7 @@ Hack-The-Box/
 | 4 | [Browsed](./Write-ups/Browsed/README.md) | Medium | Linux | Web / PrivEsc | March 9, 2026 |
 | 5 | [Editor](./Write-ups/Editor/README.md) | Easy | Linux | Web / PrivEsc | March 10, 2026 |
 | 6 | [Artificial](./Write-ups/Artifical/Artificial/README.md) | Easy | Linux | AI / PrivEsc | March 11, 2026 |
+| 7 | [Down](./Write-ups/Down/README.md) | Easy | Linux | Web / SSRF | March 12, 2026 |
 
 ---
 
@@ -53,6 +55,7 @@ Hack-The-Box/
 | `jq` | JSON parsing |
 | `hashcat` | Password hash cracking |
 | `Docker` | Isolated exploit build environments |
+| `pswm-decryptor` | Brute-force pswm password manager vaults |
 
 ---
 
