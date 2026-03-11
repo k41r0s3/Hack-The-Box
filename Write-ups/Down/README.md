@@ -451,8 +451,8 @@ python3 pswm-decrypt.py -f pswm_vault -w /usr/share/wordlists/rockyou.txt
 +------------+----------+----------------------+
 | Alias      | Username | Password             |
 +------------+----------+----------------------+
-| pswm       | aleks    | flower               |
-| aleks@down | aleks    | 1uY3w22uc-Wr{xNHR~+E |
+| pswm       | aleks    | xxxxxx               |
+| aleks@down | aleks    | xxxxxxxxxxxxxxxxxxxx |
 +------------+----------+----------------------+
 ```
 
@@ -460,7 +460,7 @@ python3 pswm-decrypt.py -f pswm_vault -w /usr/share/wordlists/rockyou.txt
 
 ```bash
 ssh aleks@10.129.234.87
-# Password: 1uY3w22uc-Wr{xNHR~+E
+# Password: 
 ```
 
 ---
