@@ -1,13 +1,9 @@
 # **HackTheBox — Nocturnal | Full Writeup**
 
 > **Platform:** Hack The Box
->
 > **Author:** k41r0s3
->
 > **Difficulty:** Medium
->
 > **Category:** Web / Linux
->
 > **Date:** March 12, 2026
 
 ---
