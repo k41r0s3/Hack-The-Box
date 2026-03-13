@@ -1,13 +1,9 @@
 # **HackTheBox — Code | Full Writeup**
 
 > **Platform:** Hack The Box
->
 > **Author:** k41r0s3
->
 > **Difficulty:** Easy
->
 > **Category:** Web / Linux
->
 > **Date:** March 14, 2026
 
 ---
