@@ -36,6 +36,7 @@ Hack-The-Box/
 | 6 | [Artificial](./Write-ups/Artifical/Artificial/README.md) | Easy | Linux | AI / PrivEsc | March 11, 2026 |
 | 7 | [Down](./Write-ups/Down/README.md) | Easy | Linux | Web / SSRF | March 12, 2026 |
 | 8 | [Nocturnal](./Write-ups/Nocturnal/README.md) | Medium | Linux | Web / Command Injection / CVE | March 13, 2026 |
+| 9 | [Code](./Write-ups/Code/README.md) | Easy | Linux | Web | March 14, 2026 |
 
 ---
 
