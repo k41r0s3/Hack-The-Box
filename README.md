@@ -37,6 +37,7 @@ Hack-The-Box/
 | 7 | [Down](./Write-ups/Down/README.md) | Easy | Linux | Web / SSRF | March 12, 2026 |
 | 8 | [Nocturnal](./Write-ups/Nocturnal/README.md) | Easy | Linux | Web / Command Injection / CVE | March 13, 2026 |
 | 9 | [Code](./Write-ups/Code/README.md) | Easy | Linux | Web | March 14, 2026 |
+| 10 | [Dog](./Write-ups/Dog/README.md) | Easy | Linux | Web / Git Disclosure | March 17, 2026 |
 
 ---
 
@@ -58,6 +59,7 @@ Hack-The-Box/
 | `hashcat` | Password hash cracking |
 | `Docker` | Isolated exploit build environments |
 | `pswm-decryptor` | Brute-force pswm password manager vaults |
+| `git-dumper` | Dump exposed `.git` repositories |
 
 ---
 
