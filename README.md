@@ -1,6 +1,6 @@
 # 🧠 Hack The Box — Writeups
 
-> **Author:** k41r0s3
+> **Author:** k41r0s3  
 > **Platform:** [Hack The Box](https://www.hackthebox.com/)
 
 A collection of my personal writeups for retired Hack The Box machines. Each writeup documents my methodology, tools used, and the full attack chain from initial reconnaissance to root.
@@ -38,6 +38,7 @@ Hack-The-Box/
 | 8 | [Nocturnal](./Write-ups/Nocturnal/README.md) | Easy | Linux | Web / Command Injection / CVE | March 13, 2026 |
 | 9 | [Code](./Write-ups/Code/README.md) | Easy | Linux | Web | March 14, 2026 |
 | 10 | [Dog](./Write-ups/Dog/README.md) | Easy | Linux | Web / Git Disclosure | March 17, 2026 |
+| 11 | [Trick](./Write-ups/Trick/README.md) | Easy | Linux | Web / LFI / DNS | March 17, 2026 |
 
 ---
 
@@ -60,6 +61,9 @@ Hack-The-Box/
 | `Docker` | Isolated exploit build environments |
 | `pswm-decryptor` | Brute-force pswm password manager vaults |
 | `git-dumper` | Dump exposed `.git` repositories |
+| `dig` | DNS zone transfer and record enumeration |
+| `sshpass` | Forced password authentication over SSH |
+| `hydra` | Network login brute-forcing |
 
 ---
 
