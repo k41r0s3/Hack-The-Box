@@ -9,7 +9,7 @@
 
 ## TL;DR
 
-Grafana 8.0.0 is exposed on port 3000, vulnerable to **CVE-2021-43798** (unauthenticated path traversal). Leveraged it to read the Grafana SQLite database, extracted a PBKDF2-SHA256 hash for user `boris`, cracked it with hashcat (`***REMOVED***`), and SSH'd in for user. Privesc via `sudo docker exec *` — retrieved the container ID from `/proc`, dropped into the Grafana container as root, then mounted the host disk `/dev/sda1` to read the root flag.
+Grafana 8.0.0 is exposed on port 3000, vulnerable to **CVE-2021-43798** (unauthenticated path traversal). Leveraged it to read the Grafana SQLite database, extracted a PBKDF2-SHA256 hash for user `boris`, cracked it with hashcat (`[REDACTED]`), and SSH'd in for user. Privesc via `sudo docker exec *` — retrieved the container ID from `/proc`, dropped into the Grafana container as root, then mounted the host disk `/dev/sda1` to read the root flag.
 
 ---
 
@@ -152,10 +152,10 @@ hashcat -m 10900 hashes.txt /usr/share/wordlists/rockyou.txt --force
 ```
 
 ```
-sha256:10000:TENCaGR0SldqbA==:3GvszLtX002v... : ***REMOVED***
+sha256:10000:TENCaGR0SldqbA==:3GvszLtX002v... : [REDACTED]
 ```
 
-**Credentials:** `boris:***REMOVED***`
+**Credentials:** `boris:[REDACTED]`
 
 ---
 
@@ -164,7 +164,7 @@ sha256:10000:TENCaGR0SldqbA==:3GvszLtX002v... : ***REMOVED***
 ### User Flag
 
 ```bash
-ssh boris@data.htb  # password: ***REMOVED***
+ssh boris@data.htb  # password: [REDACTED]
 cat ~/user.txt
 ```
 
@@ -231,7 +231,7 @@ cat /mnt/host/root/root.txt
 ## Lessons Learned
 
 - **CVE-2021-43798** is a critical unauthenticated file read — always keep Grafana updated and never expose the dashboard publicly. The SQLite DB and `grafana.ini` both contain sensitive credentials that enable full compromise.
-- **PBKDF2 doesn't mean uncrackable** — weak passwords like `***REMOVED***` fall to rockyou regardless of the hashing algorithm. Strong, unique passwords matter more than the hash function.
+- **PBKDF2 doesn't mean uncrackable** — weak passwords like `[REDACTED]` fall to rockyou regardless of the hashing algorithm. Strong, unique passwords matter more than the hash function.
 - **`docker exec *` in sudoers is dangerous** — even without `docker ps`, a container ID is trivially recoverable from `/proc/<pid>/cgroup` of any containerized process visible on the host.
 - **Raw block device access bypasses namespacing** — being root in a container with access to `/dev/sda1` allows a full disk mount, completely circumventing filesystem isolation. This is a critical host misconfiguration with no easy container-level fix.
 
