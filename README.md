@@ -33,7 +33,7 @@ Hack-The-Box/
 | 3 | [Data](./Write-ups/Data/README.md) | Easy | Linux | Web / Network | March 7, 2026 |
 | 4 | [Browsed](./Write-ups/Browsed/README.md) | Medium | Linux | Web / PrivEsc | March 9, 2026 |
 | 5 | [Editor](./Write-ups/Editor/README.md) | Easy | Linux | Web / PrivEsc | March 10, 2026 |
-| 6 | [Artificial](./Write-ups/Artifical/Artificial/README.md) | Easy | Linux | AI / PrivEsc | March 11, 2026 |
+| 6 | [Artificial](./Write-ups/Artificial/README.md) | Easy | Linux | AI / PrivEsc | March 11, 2026 |
 | 7 | [Down](./Write-ups/Down/README.md) | Easy | Linux | Web / SSRF | March 12, 2026 |
 | 8 | [Nocturnal](./Write-ups/Nocturnal/README.md) | Easy | Linux | Web / Command Injection / CVE | March 13, 2026 |
 | 9 | [Code](./Write-ups/Code/README.md) | Easy | Linux | Web | March 14, 2026 |
