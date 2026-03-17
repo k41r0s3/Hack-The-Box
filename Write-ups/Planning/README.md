@@ -268,7 +268,7 @@ done && echo "UP!" \
 ```
 
 ```
-***REMOVED***
+**[REDACTED]**
 ```
 
 🚩 **Root flag captured!**

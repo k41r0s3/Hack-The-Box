@@ -169,7 +169,7 @@ cat ~/user.txt
 ```
 
 ```
-***REMOVED***
+**[REDACTED]**
 ```
 
 ### Privilege Escalation — Docker Exec Misconfiguration
@@ -223,7 +223,7 @@ cat /mnt/host/root/root.txt
 ```
 
 ```
-***REMOVED***
+**[REDACTED]**
 ```
 
 ---
