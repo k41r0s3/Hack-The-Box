@@ -1,5 +1,4 @@
 # 🧠 Hack The Box — Writeups
-
 > **Author:** k41r0s3  
 > **Platform:** [Hack The Box](https://www.hackthebox.com/)
 
@@ -39,11 +38,13 @@ Hack-The-Box/
 | 9 | [Code](./Write-ups/Code/README.md) | Easy | Linux | Web | March 14, 2026 |
 | 10 | [Dog](./Write-ups/Dog/README.md) | Easy | Linux | Web / Git Disclosure | March 17, 2026 |
 | 11 | [Trick](./Write-ups/Trick/README.md) | Easy | Linux | Web / LFI / DNS | March 17, 2026 |
+| 12 | [Fluffy](./Write-ups/Fluffy/README.md) | Medium | Windows | Active Directory / ADCS / CVE-2025-24071 / ESC16 | March 18, 2026 |
 
 ---
 
 ## 🛠️ Common Tools
 
+### 🌐 Web & Network
 | Tool | Purpose |
 |------|---------|
 | `nmap` | Port scanning and service enumeration |
@@ -51,19 +52,37 @@ Hack-The-Box/
 | `gobuster` | Directory and vhost enumeration |
 | `curl` | Web requests and API interaction |
 | `whatweb` | Web technology fingerprinting |
-| `netcat` | Reverse shell listener |
-| `LinPEAS` | Privilege escalation enumeration |
 | `BurpSuite` | Web traffic interception and analysis |
-| `Metasploit` | Exploitation framework |
-| `rsh-redone-client` | BSD r-services client |
-| `jq` | JSON parsing |
-| `hashcat` | Password hash cracking |
-| `Docker` | Isolated exploit build environments |
-| `pswm-decryptor` | Brute-force pswm password manager vaults |
-| `git-dumper` | Dump exposed `.git` repositories |
 | `dig` | DNS zone transfer and record enumeration |
-| `sshpass` | Forced password authentication over SSH |
+
+### 🪟 Active Directory
+| Tool | Purpose |
+|------|---------|
+| `netexec` | SMB/WinRM credential validation, share enumeration |
+| `impacket` | AD attack suite (GetUserSPNs, GetNPUsers, etc.) |
+| `bloodyAD` | ACL enumeration, group membership abuse, shadow credentials |
+| `certipy-ad` | ADCS enumeration and exploitation (ESC1–ESC16) |
+| `PKINITtools` | PKINIT TGT requests and NT hash recovery |
+| `evil-winrm` | WinRM shell via credentials or NT hash |
+| `bloodhound-python` | Active Directory data collection for BloodHound |
+| `responder` | NTLM hash capture via poisoning |
+| `hashcat` | Password hash cracking (NTLMv2, TGS, etc.) |
+| `smbclient` | SMB share interaction and file transfer |
+| `ldapsearch` | LDAP enumeration and SID resolution |
+
+### 🐧 Linux PrivEsc & General
+| Tool | Purpose |
+|------|---------|
+| `netcat` | Reverse shell listener |
+| `LinPEAS` | Linux privilege escalation enumeration |
+| `Metasploit` | Exploitation framework |
 | `hydra` | Network login brute-forcing |
+| `sshpass` | Forced password authentication over SSH |
+| `jq` | JSON parsing |
+| `git-dumper` | Dump exposed `.git` repositories |
+| `rsh-redone-client` | BSD r-services client |
+| `pswm-decryptor` | Brute-force pswm password manager vaults |
+| `Docker` | Isolated exploit build environments |
 
 ---
 
