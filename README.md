@@ -7,13 +7,11 @@ A collection of my personal writeups for retired Hack The Box machines. Each wri
 ---
 
 ## ⚠️ Disclaimer
-
 These writeups are for **educational purposes only**. All machines documented here are **retired** HTB machines, meaning they are no longer active challenges. Please respect HTB's rules and do not share writeups for active machines.
 
 ---
 
 ## 📁 Repository Structure
-
 ```
 Hack-The-Box/
 └── Write-ups/
@@ -24,7 +22,6 @@ Hack-The-Box/
 ---
 
 ## 📝 Writeups
-
 | # | Machine | Difficulty | OS | Category | Date |
 |---|---------|------------|-----|----------|------|
 | 1 | [Planning](./Write-ups/Planning/README.md) | Easy | Linux | Web | March 3, 2026 |
@@ -39,6 +36,7 @@ Hack-The-Box/
 | 10 | [Dog](./Write-ups/Dog/README.md) | Easy | Linux | Web / Git Disclosure | March 17, 2026 |
 | 11 | [Trick](./Write-ups/Trick/README.md) | Easy | Linux | Web / LFI / DNS | March 17, 2026 |
 | 12 | [Fluffy](./Write-ups/Fluffy/README.md) | Medium | Windows | Active Directory / ADCS / CVE-2025-24071 / ESC16 | March 18, 2026 |
+| 13 | [Postman](./Write-ups/Postman/README.md) | Easy | Linux | Misconfiguration / Redis / CVE-2019-12840 | March 18, 2026 |
 
 ---
 
@@ -83,11 +81,13 @@ Hack-The-Box/
 | `rsh-redone-client` | BSD r-services client |
 | `pswm-decryptor` | Brute-force pswm password manager vaults |
 | `Docker` | Isolated exploit build environments |
+| `redis-cli` | Redis interaction and exploitation |
+| `ssh2john` | Convert encrypted SSH keys to crackable format |
+| `john` | Offline password and passphrase cracking |
 
 ---
 
 ## 🔗 Connect
-
 - **HTB Profile:** [k41r0s3](https://app.hackthebox.com/public/users/2406865)
 - **GitHub:** [k41r0s3](https://github.com/k41r0s3)
 
