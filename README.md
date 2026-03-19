@@ -38,6 +38,7 @@ Hack-The-Box/
 | 12 | [Fluffy](./Write-ups/Fluffy/README.md) | Medium | Windows | Active Directory / ADCS / CVE-2025-24071 / ESC16 | March 18, 2026 |
 | 13 | [Postman](./Write-ups/Postman/README.md) | Easy | Linux | Misconfiguration / Redis / CVE-2019-12840 | March 18, 2026 |
 | 14 | [Craft](./Write-ups/Craft/README.md) | Medium | Linux | Web / Git Recon / eval() RCE / Vault | March 19, 2026 |
+| 15 | [Jeeves](./Write-ups/Jeeves/README.md) | Medium | Windows | Web / Jenkins RCE / JuicyPotato / NTFS ADS | March 19, 2026 |
 
 ---
 
@@ -86,6 +87,7 @@ Hack-The-Box/
 | `ssh2john` | Convert encrypted SSH keys to crackable format |
 | `john` | Offline password and passphrase cracking |
 | `vault` | HashiCorp Vault CLI — secret engine enumeration and SSH OTP generation |
+| `JuicyPotato` | SeImpersonatePrivilege → SYSTEM token impersonation (Windows, pre-1809) |
 
 ---
 
