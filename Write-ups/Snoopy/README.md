@@ -8,6 +8,25 @@
 
 ---
 
+## Table of Contents
+
+1. [TL;DR](#tldr)
+2. [Recon](#recon)
+3. [LFI — The `....//` Filter Bypass](#lfi--the--filter-bypass)
+4. [DNS MX Injection → Email Interception](#dns-mx-injection--email-interception)
+5. [Mattermost Enumeration](#mattermost-enumeration)
+6. [SSH Credential Capture — Cowrie Honeypot](#ssh-credential-capture--cowrie-honeypot)
+7. [Initial Access — SSH](#initial-access--ssh)
+8. [Lateral Movement — CVE-2023-23946](#lateral-movement--cve-2023-23946-git-apply-symlink-rename)
+9. [Privilege Escalation — CVE-2023-20052](#privilege-escalation--cve-2023-20052-clamav-dmg-xxe)
+10. [Attack Chain](#attack-chain)
+11. [Tools Used](#tools-used)
+12. [Vulnerabilities Exploited](#vulnerabilities-exploited)
+13. [What Failed — Dead Ends](#what-failed--dead-ends)
+14. [Key Takeaways](#key-takeaways)
+
+---
+
 ## TL;DR
 
 Snoopy is a hard Linux box built around a chain of interconnected vulnerabilities. A PHP download endpoint is vulnerable to LFI via a `....//` filter bypass, which allows reading BIND9 DNS configuration files containing a TSIG key. That key is used with `nsupdate` to inject a fake MX record, redirecting Mattermost password reset emails to a local SMTP listener. With Mattermost access, an internal server provisioning slash command triggers an outbound SSH connection from the target — captured using the Cowrie honeypot — leaking system credentials. From the initial shell, CVE-2023-23946 (`git apply` symlink rename) is used to write an SSH key into another user's authorized_keys. Final escalation to root exploits CVE-2023-20052, an XXE vulnerability in ClamAV's DMG parser that leaks root's private SSH key through debug output.
