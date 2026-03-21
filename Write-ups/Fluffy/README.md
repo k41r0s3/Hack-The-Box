@@ -1,5 +1,5 @@
 # HackTheBox — Fluffy
-**Difficulty:** Medium | **OS:** Windows Server 2019 | **IP:** 10.129.232.88
+**Difficulty:** Easy | **OS:** Windows Server 2019
 **Author:** k41r0s3
 
 ---
@@ -857,4 +857,4 @@ type C:\Users\Administrator\Desktop\root.txt → ROOT FLAG ✅
 
 ---
 
-*Writeup by k41r0s3 — HackTheBox Fluffy (Medium Windows AD)*
+*Writeup by k41r0s3 — HackTheBox Fluffy (Easy Windows AD)*
