@@ -39,6 +39,7 @@ Hack-The-Box/
 | 13 | [Postman](./Write-ups/Postman/README.md) | Easy | Linux | Misconfiguration / Redis / CVE-2019-12840 | March 18, 2026 |
 | 14 | [Craft](./Write-ups/Craft/README.md) | Medium | Linux | Web / Git Recon / eval() RCE / Vault | March 19, 2026 |
 | 15 | [Jeeves](./Write-ups/Jeeves/README.md) | Medium | Windows | Web / Jenkins RCE / JuicyPotato / NTFS ADS | March 19, 2026 |
+| 16 | [Snoopy](./Write-ups/Snoopy/README.md) | Hard | Linux | LFI / DNS Injection / Mattermost / CVE-2023-23946 / CVE-2023-20052 | March 20, 2026 |
 
 ---
 
@@ -54,6 +55,9 @@ Hack-The-Box/
 | `whatweb` | Web technology fingerprinting |
 | `BurpSuite` | Web traffic interception and analysis |
 | `dig` | DNS zone transfer and record enumeration |
+| `nsupdate` | TSIG-authenticated DNS dynamic update injection |
+| `aiosmtpd` | Fake SMTP server for email interception |
+| `Cowrie` | SSH honeypot for credential capture |
 
 ### 🪟 Active Directory
 | Tool | Purpose |
@@ -88,6 +92,8 @@ Hack-The-Box/
 | `john` | Offline password and passphrase cracking |
 | `vault` | HashiCorp Vault CLI — secret engine enumeration and SSH OTP generation |
 | `JuicyPotato` | SeImpersonatePrivilege → SYSTEM token impersonation (Windows, pre-1809) |
+| `genisoimage` | Build HFS+ disk images for Apple DMG creation |
+| `bbe` | Binary stream editor — patch DMG plists for CVE exploitation |
 
 ---
 
