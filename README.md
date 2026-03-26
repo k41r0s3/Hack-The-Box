@@ -40,6 +40,7 @@ Hack-The-Box/
 | 14 | [Craft](./Write-ups/Craft/README.md) | Medium | Linux | Web / Git Recon / eval() RCE / Vault | March 19, 2026 |
 | 15 | [Jeeves](./Write-ups/Jeeves/README.md) | Medium | Windows | Web / Jenkins RCE / JuicyPotato / NTFS ADS | March 19, 2026 |
 | 16 | [Snoopy](./Write-ups/Snoopy/README.md) | Hard | Linux | LFI / DNS Injection / Mattermost / CVE-2023-23946 / CVE-2023-20052 | March 20, 2026 |
+| 17 | [UnderPass](./Write-ups/UnderPass/README.md) | Easy | Linux | SNMP / daloRADIUS / Mosh | March 26, 2026 |
 
 ---
 
@@ -58,6 +59,9 @@ Hack-The-Box/
 | `nsupdate` | TSIG-authenticated DNS dynamic update injection |
 | `aiosmtpd` | Fake SMTP server for email interception |
 | `Cowrie` | SSH honeypot for credential capture |
+| `snmpwalk` | SNMP enumeration via community string |
+| `snmp-check` | Formatted SNMP system info report |
+| `onesixtyone` | SNMP community string brute-forcing |
 
 ### 🪟 Active Directory
 | Tool | Purpose |
@@ -94,6 +98,7 @@ Hack-The-Box/
 | `JuicyPotato` | SeImpersonatePrivilege → SYSTEM token impersonation (Windows, pre-1809) |
 | `genisoimage` | Build HFS+ disk images for Apple DMG creation |
 | `bbe` | Binary stream editor — patch DMG plists for CVE exploitation |
+| `mosh-client` | Connect to privileged mosh-server session for root shell access |
 
 ---
 
