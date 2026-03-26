@@ -1,3 +1,4 @@
+
 # 🧠 Hack The Box — Writeups
 > **Author:** k41r0s3  
 > **Platform:** [Hack The Box](https://www.hackthebox.com/)
@@ -41,6 +42,7 @@ Hack-The-Box/
 | 15 | [Jeeves](./Write-ups/Jeeves/README.md) | Medium | Windows | Web / Jenkins RCE / JuicyPotato / NTFS ADS | March 19, 2026 |
 | 16 | [Snoopy](./Write-ups/Snoopy/README.md) | Hard | Linux | LFI / DNS Injection / Mattermost / CVE-2023-23946 / CVE-2023-20052 | March 20, 2026 |
 | 17 | [UnderPass](./Write-ups/UnderPass/README.md) | Easy | Linux | SNMP / daloRADIUS / Mosh | March 26, 2026 |
+| 18 | [Titanic](./Write-ups/Titanic/README.md) | Easy | Linux | Web / LFI / Gitea / CVE-2024-41817 | March 26, 2026 |
 
 ---
 
@@ -62,6 +64,7 @@ Hack-The-Box/
 | `snmpwalk` | SNMP enumeration via community string |
 | `snmp-check` | Formatted SNMP system info report |
 | `onesixtyone` | SNMP community string brute-forcing |
+| `sqlite3` | Query SQLite databases (e.g. Gitea user hash extraction) |
 
 ### 🪟 Active Directory
 | Tool | Purpose |
@@ -74,7 +77,7 @@ Hack-The-Box/
 | `evil-winrm` | WinRM shell via credentials or NT hash |
 | `bloodhound-python` | Active Directory data collection for BloodHound |
 | `responder` | NTLM hash capture via poisoning |
-| `hashcat` | Password hash cracking (NTLMv2, TGS, etc.) |
+| `hashcat` | Password hash cracking (NTLMv2, TGS, PBKDF2, etc.) |
 | `smbclient` | SMB share interaction and file transfer |
 | `ldapsearch` | LDAP enumeration and SID resolution |
 
@@ -99,6 +102,7 @@ Hack-The-Box/
 | `genisoimage` | Build HFS+ disk images for Apple DMG creation |
 | `bbe` | Binary stream editor — patch DMG plists for CVE exploitation |
 | `mosh-client` | Connect to privileged mosh-server session for root shell access |
+| `gcc` | Compile malicious shared libraries for CVE-2024-41817 ImageMagick privesc |
 
 ---
 
