@@ -1,4 +1,3 @@
-
 # 🧠 Hack The Box — Writeups
 > **Author:** k41r0s3  
 > **Platform:** [Hack The Box](https://www.hackthebox.com/)
@@ -43,6 +42,7 @@ Hack-The-Box/
 | 16 | [Snoopy](./Write-ups/Snoopy/README.md) | Hard | Linux | LFI / DNS Injection / Mattermost / CVE-2023-23946 / CVE-2023-20052 | March 20, 2026 |
 | 17 | [UnderPass](./Write-ups/UnderPass/README.md) | Easy | Linux | SNMP / daloRADIUS / Mosh | March 26, 2026 |
 | 18 | [Titanic](./Write-ups/Titanic/README.md) | Easy | Linux | Web / LFI / Gitea / CVE-2024-41817 | March 26, 2026 |
+| 19 | [Support](./Write-ups/Support/README.md) | Easy | Windows | Active Directory / SMB / .NET RE / LDAP / RBCD | March 27, 2026 |
 
 ---
 
@@ -70,7 +70,7 @@ Hack-The-Box/
 | Tool | Purpose |
 |------|---------|
 | `netexec` | SMB/WinRM credential validation, share enumeration |
-| `impacket` | AD attack suite (GetUserSPNs, GetNPUsers, etc.) |
+| `impacket` | AD attack suite (GetUserSPNs, GetNPUsers, addcomputer, rbcd, getST, secretsdump) |
 | `bloodyAD` | ACL enumeration, group membership abuse, shadow credentials |
 | `certipy-ad` | ADCS enumeration and exploitation (ESC1–ESC16) |
 | `PKINITtools` | PKINIT TGT requests and NT hash recovery |
@@ -80,6 +80,20 @@ Hack-The-Box/
 | `hashcat` | Password hash cracking (NTLMv2, TGS, PBKDF2, etc.) |
 | `smbclient` | SMB share interaction and file transfer |
 | `ldapsearch` | LDAP enumeration and SID resolution |
+| `addcomputer.py` | Create fake machine accounts for RBCD attacks |
+| `rbcd.py` | Write msDS-AllowedToActOnBehalfOfOtherIdentity for RBCD |
+| `getST.py` | Request S4U2Proxy Kerberos service tickets for impersonation |
+| `secretsdump.py` | DCSync — extract NT hashes and Kerberos keys from domain |
+
+### 🔬 Reverse Engineering & Binary Analysis
+| Tool | Purpose |
+|------|---------|
+| `python3` | .NET PE metadata parser — extract #US heap string literals |
+| `dnfile` | Python library for parsing .NET PE metadata streams |
+| `pefile` | Python PE file parsing library |
+| `strings` | Basic string extraction from binaries |
+| `binwalk` | Binary file analysis and embedded content detection |
+| `file` | Identify binary type and architecture |
 
 ### 🐧 Linux PrivEsc & General
 | Tool | Purpose |
