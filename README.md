@@ -43,6 +43,7 @@ Hack-The-Box/
 | 17 | [UnderPass](./Write-ups/UnderPass/README.md) | Easy | Linux | SNMP / daloRADIUS / Mosh | March 26, 2026 |
 | 18 | [Titanic](./Write-ups/Titanic/README.md) | Easy | Linux | Web / LFI / Gitea / CVE-2024-41817 | March 26, 2026 |
 | 19 | [Support](./Write-ups/Support/README.md) | Easy | Windows | Active Directory / SMB / .NET RE / LDAP / RBCD | March 27, 2026 |
+| 20 | [POV](./Write-ups/POV/README.md) | Medium | Windows | LFI / ASP.NET ViewState Deserialization / SeDebugPrivilege | March 28, 2026 |
 
 ---
 
@@ -117,6 +118,8 @@ Hack-The-Box/
 | `bbe` | Binary stream editor — patch DMG plists for CVE exploitation |
 | `mosh-client` | Connect to privileged mosh-server session for root shell access |
 | `gcc` | Compile malicious shared libraries for CVE-2024-41817 ImageMagick privesc |
+| `ysoserial.net` | .NET deserialization payload generation (ViewState, BinaryFormatter gadget chains) |
+| `RunasCs` | Spawn processes with interactive logon token (Type 2) to enable stripped privileges |
 
 ---
 
