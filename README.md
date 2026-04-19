@@ -22,29 +22,30 @@ Hack-The-Box/
 ---
 
 ## 📝 Writeups
-| #   | Machine                                        | Difficulty | OS      | Category                                                           | Date           |
-| --- | ---------------------------------------------- | ---------- | ------- | ------------------------------------------------------------------ | -------------- |
-| 1   | [Planning](./Write-ups/Planning/README.md)     | Easy       | Linux   | Web                                                                | March 3, 2026  |
-| 2   | [Reset](./Write-ups/Reset/README.md)           | Easy       | Linux   | Web / Network                                                      | March 4, 2026  |
-| 3   | [Data](./Write-ups/Data/README.md)             | Easy       | Linux   | Web / Network                                                      | March 7, 2026  |
-| 4   | [Browsed](./Write-ups/Browsed/README.md)       | Medium     | Linux   | Web / PrivEsc                                                      | March 9, 2026  |
-| 5   | [Editor](./Write-ups/Editor/README.md)         | Easy       | Linux   | Web / PrivEsc                                                      | March 10, 2026 |
-| 6   | [Artificial](./Write-ups/Artificial/README.md) | Easy       | Linux   | AI / PrivEsc                                                       | March 11, 2026 |
-| 7   | [Down](./Write-ups/Down/README.md)             | Easy       | Linux   | Web / SSRF                                                         | March 12, 2026 |
-| 8   | [Nocturnal](./Write-ups/Nocturnal/README.md)   | Easy       | Linux   | Web / Command Injection / CVE                                      | March 13, 2026 |
-| 9   | [Code](./Write-ups/Code/README.md)             | Easy       | Linux   | Web                                                                | March 14, 2026 |
-| 10  | [Dog](./Write-ups/Dog/README.md)               | Easy       | Linux   | Web / Git Disclosure                                               | March 17, 2026 |
-| 11  | [Trick](./Write-ups/Trick/README.md)           | Easy       | Linux   | Web / LFI / DNS                                                    | March 17, 2026 |
-| 12  | [Fluffy](./Write-ups/Fluffy/README.md)         | Medium     | Windows | Active Directory / ADCS / CVE-2025-24071 / ESC16                   | March 18, 2026 |
-| 13  | [Postman](./Write-ups/Postman/README.md)       | Easy       | Linux   | Misconfiguration / Redis / CVE-2019-12840                          | March 18, 2026 |
-| 14  | [Craft](./Write-ups/Craft/README.md)           | Medium     | Linux   | Web / Git Recon / eval() RCE / Vault                               | March 19, 2026 |
-| 15  | [Jeeves](./Write-ups/Jeeves/README.md)         | Medium     | Windows | Web / Jenkins RCE / JuicyPotato / NTFS ADS                         | March 19, 2026 |
-| 16  | [Snoopy](./Write-ups/Snoopy/README.md)         | Hard       | Linux   | LFI / DNS Injection / Mattermost / CVE-2023-23946 / CVE-2023-20052 | March 20, 2026 |
-| 17  | [UnderPass](./Write-ups/UnderPass/README.md)   | Easy       | Linux   | SNMP / daloRADIUS / Mosh                                           | March 26, 2026 |
-| 18  | [Titanic](./Write-ups/Titanic/README.md)       | Easy       | Linux   | Web / LFI / Gitea / CVE-2024-41817                                 | March 26, 2026 |
-| 19  | [Support](./Write-ups/Support/README.md)       | Easy       | Windows | Active Directory / SMB / .NET RE / LDAP / RBCD                     | March 27, 2026 |
-| 20  | [POV](./Write-ups/POV/README.md)               | Medium     | Windows | LFI / ASP.NET ViewState Deserialization / SeDebugPrivilege         | March 28, 2026 |
-| 21  | [LinkVortex](./Write-ups/LinkVortex/README.md) | Easy       | Linux   | Web / Git Disclosure / CVE-2023-40028 / Symlink Bypass             | March 30, 2026 |
+| #   | Machine                                                    | Difficulty | OS      | Category                                                            | Date           |
+| --- | ---------------------------------------------------------- | ---------- | ------- | ------------------------------------------------------------------- | -------------- |
+| 1   | [Planning](./Write-ups/Planning/README.md)                 | Easy       | Linux   | Web                                                                 | March 3, 2026  |
+| 2   | [Reset](./Write-ups/Reset/README.md)                       | Easy       | Linux   | Web / Network                                                       | March 4, 2026  |
+| 3   | [Data](./Write-ups/Data/README.md)                         | Easy       | Linux   | Web / Network                                                       | March 7, 2026  |
+| 4   | [Browsed](./Write-ups/Browsed/README.md)                   | Medium     | Linux   | Web / PrivEsc                                                       | March 9, 2026  |
+| 5   | [Editor](./Write-ups/Editor/README.md)                     | Easy       | Linux   | Web / PrivEsc                                                       | March 10, 2026 |
+| 6   | [Artificial](./Write-ups/Artificial/README.md)             | Easy       | Linux   | AI / PrivEsc                                                        | March 11, 2026 |
+| 7   | [Down](./Write-ups/Down/README.md)                         | Easy       | Linux   | Web / SSRF                                                          | March 12, 2026 |
+| 8   | [Nocturnal](./Write-ups/Nocturnal/README.md)               | Easy       | Linux   | Web / Command Injection / CVE                                       | March 13, 2026 |
+| 9   | [Code](./Write-ups/Code/README.md)                         | Easy       | Linux   | Web                                                                 | March 14, 2026 |
+| 10  | [Dog](./Write-ups/Dog/README.md)                           | Easy       | Linux   | Web / Git Disclosure                                                | March 17, 2026 |
+| 11  | [Trick](./Write-ups/Trick/README.md)                       | Easy       | Linux   | Web / LFI / DNS                                                     | March 17, 2026 |
+| 12  | [Fluffy](./Write-ups/Fluffy/README.md)                     | Medium     | Windows | Active Directory / ADCS / CVE-2025-24071 / ESC16                   | March 18, 2026 |
+| 13  | [Postman](./Write-ups/Postman/README.md)                   | Easy       | Linux   | Misconfiguration / Redis / CVE-2019-12840                           | March 18, 2026 |
+| 14  | [Craft](./Write-ups/Craft/README.md)                       | Medium     | Linux   | Web / Git Recon / eval() RCE / Vault                                | March 19, 2026 |
+| 15  | [Jeeves](./Write-ups/Jeeves/README.md)                     | Medium     | Windows | Web / Jenkins RCE / JuicyPotato / NTFS ADS                         | March 19, 2026 |
+| 16  | [Snoopy](./Write-ups/Snoopy/README.md)                     | Hard       | Linux   | LFI / DNS Injection / Mattermost / CVE-2023-23946 / CVE-2023-20052 | March 20, 2026 |
+| 17  | [UnderPass](./Write-ups/UnderPass/README.md)               | Easy       | Linux   | SNMP / daloRADIUS / Mosh                                            | March 26, 2026 |
+| 18  | [Titanic](./Write-ups/Titanic/README.md)                   | Easy       | Linux   | Web / LFI / Gitea / CVE-2024-41817                                 | March 26, 2026 |
+| 19  | [Support](./Write-ups/Support/README.md)                   | Easy       | Windows | Active Directory / SMB / .NET RE / LDAP / RBCD                     | March 27, 2026 |
+| 20  | [POV](./Write-ups/POV/README.md)                           | Medium     | Windows | LFI / ASP.NET ViewState Deserialization / SeDebugPrivilege          | March 28, 2026 |
+| 21  | [LinkVortex](./Write-ups/LinkVortex/README.md)             | Easy       | Linux   | Web / Git Disclosure / CVE-2023-40028 / Symlink Bypass              | March 30, 2026 |
+| 22  | [Administrator](./Write-ups/Administrator/README.md)       | Medium     | Windows | Active Directory / ACL Abuse / Password Safe / DCSync               | April 18, 2026 |
 
 ---
 
@@ -67,11 +68,12 @@ Hack-The-Box/
 | `snmp-check` | Formatted SNMP system info report |
 | `onesixtyone` | SNMP community string brute-forcing |
 | `sqlite3` | Query SQLite databases (e.g. Gitea user hash extraction) |
+| `ntpdate` | Sync system clock with DC for Kerberos attacks |
 
 ### 🪟 Active Directory
 | Tool | Purpose |
 |------|---------|
-| `netexec` | SMB/WinRM credential validation, share enumeration |
+| `netexec` | SMB/WinRM/FTP credential validation, share and user enumeration |
 | `impacket` | AD attack suite (GetUserSPNs, GetNPUsers, addcomputer, rbcd, getST, secretsdump) |
 | `bloodyAD` | ACL enumeration, group membership abuse, shadow credentials |
 | `certipy-ad` | ADCS enumeration and exploitation (ESC1–ESC16) |
@@ -86,6 +88,9 @@ Hack-The-Box/
 | `rbcd.py` | Write msDS-AllowedToActOnBehalfOfOtherIdentity for RBCD |
 | `getST.py` | Request S4U2Proxy Kerberos service tickets for impersonation |
 | `secretsdump.py` | DCSync — extract NT hashes and Kerberos keys from domain |
+| `targetedKerberoast.py` | Abuse GenericWrite to set fake SPN, capture and clean up TGS hash |
+| `net rpc` | Remote password reset via MS-RPC (abuse GenericAll / ForceChangePassword) |
+| `pwsafe2john` | Convert Password Safe .psafe3 vaults to john-crackable format |
 
 ### 🔬 Reverse Engineering & Binary Analysis
 | Tool | Purpose |
@@ -112,7 +117,7 @@ Hack-The-Box/
 | `Docker` | Isolated exploit build environments |
 | `redis-cli` | Redis interaction and exploitation |
 | `ssh2john` | Convert encrypted SSH keys to crackable format |
-| `john` | Offline password and passphrase cracking |
+| `john` | Offline password and passphrase cracking (TGS, psafe3, SSH keys, etc.) |
 | `vault` | HashiCorp Vault CLI — secret engine enumeration and SSH OTP generation |
 | `JuicyPotato` | SeImpersonatePrivilege → SYSTEM token impersonation (Windows, pre-1809) |
 | `genisoimage` | Build HFS+ disk images for Apple DMG creation |
