@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hack The Box Writeups | k41r0s3</title>
+  <style>
+    :root {
+      --bg: #07110d;
+      --panel: rgba(12, 27, 20, 0.84);
+      --line: rgba(0, 255, 136, 0.16);
+      --text: #ecf7f0;
+      --muted: #8aa696;
+      --faint: #557263;
+      --green: #00ff88;
+      --yellow: #ffd166;
+      --red: #ff6b6b;
+      --blue: #66d9ff;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      background:
+        linear-gradient(rgba(0, 255, 136, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 20% 0%, rgba(0, 255, 136, 0.14), transparent 34rem),
+        radial-gradient(circle at 88% 18%, rgba(102, 217, 255, 0.08), transparent 30rem),
+        var(--bg);
+      background-size: 48px 48px, 48px 48px, auto, auto, auto;
+    }
+
+    a { color: inherit; }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 17, 13, 0.84);
+      backdrop-filter: blur(16px);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      color: var(--green);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--green); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 44px;
+      align-items: end;
+      padding: 92px 0 56px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--green);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--green);
+    }
+
+    h1 {
+      max-width: 820px;
+      margin: 0;
+      font-size: clamp(2.7rem, 8vw, 6rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      color: var(--text);
+      background: rgba(12, 27, 20, 0.8);
+      text-decoration: none;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .btn.primary {
+      color: #06100b;
+      border-color: var(--green);
+      background: var(--green);
+      font-weight: 700;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--green);
+      background: rgba(0, 255, 136, 0.09);
+    }
+
+    .btn.primary:hover {
+      color: #06100b;
+      background: #f2fff8;
+    }
+
+    .stats {
+      display: grid;
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--green);
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--faint);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    main { padding-bottom: 70px; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 24px 0 22px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(12, 27, 20, 0.82);
+      padding: 8px 13px;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.86rem;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .filter.active,
+    .filter:hover {
+      color: var(--green);
+      border-color: rgba(0, 255, 136, 0.46);
+      background: rgba(0, 255, 136, 0.09);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 246px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      text-decoration: none;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 255, 136, 0.46);
+      background: rgba(12, 27, 20, 0.96);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .machine-no {
+      color: var(--faint);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.74rem;
+    }
+
+    .difficulty {
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+    }
+
+    .easy { color: var(--green); }
+    .medium { color: var(--yellow); }
+    .hard { color: var(--red); }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text);
+      font-size: 1.34rem;
+      line-height: 1.2;
+    }
+
+    .date {
+      color: var(--faint);
+      font-size: 0.82rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .pill {
+      color: var(--muted);
+      border: 1px solid rgba(138, 166, 150, 0.22);
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 0.75rem;
+    }
+
+    .notice {
+      margin-top: 42px;
+      padding: 20px;
+      border: 1px solid rgba(255, 209, 102, 0.22);
+      background: rgba(255, 209, 102, 0.07);
+      color: #dbc992;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 26px 0;
+      color: var(--faint);
+      font-size: 0.84rem;
+    }
+
+    footer .shell {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; padding-top: 70px; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 10px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="shell" aria-label="Primary navigation">
+      <a class="brand" href="#top">k41r0s3 / htb</a>
+      <div class="nav-links">
+        <a href="#writeups">Writeups</a>
+        <a href="README.md">README</a>
+        <a href="https://github.com/k41r0s3/Hack-The-Box">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero shell" id="top">
+    <div>
+      <div class="eyebrow">Authorized retired-machine notes</div>
+      <h1>Hack The Box writeups.</h1>
+      <p>
+        A curated collection of retired Hack The Box machine walkthroughs documenting enumeration,
+        attack paths, privilege escalation, tool usage, and lessons learned from legal lab environments.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#writeups">Browse writeups</a>
+        <a class="btn" href="https://app.hackthebox.com/public/users/2406865">HTB profile</a>
+        <a class="btn" href="https://github.com/k41r0s3">GitHub profile</a>
+      </div>
+    </div>
+    <div class="stats" aria-label="Repository summary">
+      <div class="stat"><strong>22</strong><span>Machines documented</span></div>
+      <div class="stat"><strong>3</strong><span>Difficulty tiers</span></div>
+      <div class="stat"><strong>Linux + Windows</strong><span>Operating systems</span></div>
+    </div>
+  </section>
+
+  <main class="shell" id="writeups">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Writeup index</div>
+        <h2>Machines</h2>
+      </div>
+      <p>Filter by difficulty or operating system, then open the writeup directly from the card.</p>
+    </div>
+
+    <div class="filters" aria-label="Writeup filters">
+      <button class="filter active" type="button" data-filter="all">All</button>
+      <button class="filter" type="button" data-filter="easy">Easy</button>
+      <button class="filter" type="button" data-filter="medium">Medium</button>
+      <button class="filter" type="button" data-filter="hard">Hard</button>
+      <button class="filter" type="button" data-filter="linux">Linux</button>
+      <button class="filter" type="button" data-filter="windows">Windows</button>
+      <button class="filter" type="button" data-filter="ad">Active Directory</button>
+      <button class="filter" type="button" data-filter="web">Web</button>
+    </div>
+
+    <div class="grid">
+      <a class="card" data-tags="easy linux web" href="Write-ups/Planning/README.md"><div class="card-top"><span class="machine-no">#01</span><span class="difficulty easy">Easy</span></div><h3>Planning</h3><p class="date">March 3, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Web</span></div></a>
+      <a class="card" data-tags="easy linux web network" href="Write-ups/Reset/README.md"><div class="card-top"><span class="machine-no">#02</span><span class="difficulty easy">Easy</span></div><h3>Reset</h3><p class="date">March 4, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Web</span><span class="pill">Network</span></div></a>
+      <a class="card" data-tags="easy linux web network" href="Write-ups/Data/README.md"><div class="card-top"><span class="machine-no">#03</span><span class="difficulty easy">Easy</span></div><h3>Data</h3><p class="date">March 7, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Web</span><span class="pill">Network</span></div></a>
+      <a class="card" data-tags="medium linux web privesc" href="Write-ups/Browsed/README.md"><div class="card-top"><span class="machine-no">#04</span><span class="difficulty medium">Medium</span></div><h3>Browsed</h3><p class="date">March 9, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Web</span><span class="pill">PrivEsc</span></div></a>
+      <a class="card" data-tags="easy linux web privesc" href="Write-ups/Editor/README.md"><div class="card-top"><span class="machine-no">#05</span><span class="difficulty easy">Easy</span></div><h3>Editor</h3><p class="date">March 10, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Web</span><span class="pill">PrivEsc</span></div></a>
+      <a class="card" data-tags="easy linux ai privesc" href="Write-ups/Artificial/README.md"><div class="card-top"><span class="machine-no">#06</span><span class="difficulty easy">Easy</span></div><h3>Artificial</h3><p class="date">March 11, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">AI</span><span class="pill">PrivEsc</span></div></a>
+      <a class="card" data-tags="easy linux web ssrf" href="Write-ups/Down/README.md"><div class="card-top"><span class="machine-no">#07</span><span class="difficulty easy">Easy</span></div><h3>Down</h3><p class="date">March 12, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Web</span><span class="pill">SSRF</span></div></a>
+      <a class="card" data-tags="easy linux web cve command-injection" href="Write-ups/Nocturnal/README.md"><div class="card-top"><span class="machine-no">#08</span><span class="difficulty easy">Easy</span></div><h3>Nocturnal</h3><p class="date">March 13, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Command Injection</span><span class="pill">CVE</span></div></a>
+      <a class="card" data-tags="easy linux web" href="Write-ups/Code/README.md"><div class="card-top"><span class="machine-no">#09</span><span class="difficulty easy">Easy</span></div><h3>Code</h3><p class="date">March 14, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Web</span></div></a>
+      <a class="card" data-tags="easy linux web git" href="Write-ups/Dog/README.md"><div class="card-top"><span class="machine-no">#10</span><span class="difficulty easy">Easy</span></div><h3>Dog</h3><p class="date">March 17, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Git Disclosure</span></div></a>
+      <a class="card" data-tags="easy linux web lfi dns" href="Write-ups/Trick/README.md"><div class="card-top"><span class="machine-no">#11</span><span class="difficulty easy">Easy</span></div><h3>Trick</h3><p class="date">March 17, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">LFI</span><span class="pill">DNS</span></div></a>
+      <a class="card" data-tags="medium windows ad cve" href="Write-ups/Fluffy/README.md"><div class="card-top"><span class="machine-no">#12</span><span class="difficulty medium">Medium</span></div><h3>Fluffy</h3><p class="date">March 18, 2026</p><div class="meta"><span class="pill">Windows</span><span class="pill">Active Directory</span><span class="pill">ADCS</span></div></a>
+      <a class="card" data-tags="easy linux redis cve" href="Write-ups/Postman/README.md"><div class="card-top"><span class="machine-no">#13</span><span class="difficulty easy">Easy</span></div><h3>Postman</h3><p class="date">March 18, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Redis</span><span class="pill">CVE</span></div></a>
+      <a class="card" data-tags="medium linux web git vault" href="Write-ups/Craft/README.md"><div class="card-top"><span class="machine-no">#14</span><span class="difficulty medium">Medium</span></div><h3>Craft</h3><p class="date">March 19, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Web</span><span class="pill">Vault</span></div></a>
+      <a class="card" data-tags="medium windows web jenkins privesc" href="Write-ups/Jeeves/README.md"><div class="card-top"><span class="machine-no">#15</span><span class="difficulty medium">Medium</span></div><h3>Jeeves</h3><p class="date">March 19, 2026</p><div class="meta"><span class="pill">Windows</span><span class="pill">Jenkins</span><span class="pill">PrivEsc</span></div></a>
+      <a class="card" data-tags="hard linux lfi dns cve" href="Write-ups/Snoopy/README.md"><div class="card-top"><span class="machine-no">#16</span><span class="difficulty hard">Hard</span></div><h3>Snoopy</h3><p class="date">March 20, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">LFI</span><span class="pill">DNS Injection</span></div></a>
+      <a class="card" data-tags="easy linux snmp radius" href="Write-ups/UnderPass/README.md"><div class="card-top"><span class="machine-no">#17</span><span class="difficulty easy">Easy</span></div><h3>UnderPass</h3><p class="date">March 26, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">SNMP</span><span class="pill">daloRADIUS</span></div></a>
+      <a class="card" data-tags="easy linux web lfi cve" href="Write-ups/Titanic/README.md"><div class="card-top"><span class="machine-no">#18</span><span class="difficulty easy">Easy</span></div><h3>Titanic</h3><p class="date">March 26, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">LFI</span><span class="pill">Gitea</span></div></a>
+      <a class="card" data-tags="easy windows ad smb ldap" href="Write-ups/Support/README.md"><div class="card-top"><span class="machine-no">#19</span><span class="difficulty easy">Easy</span></div><h3>Support</h3><p class="date">March 27, 2026</p><div class="meta"><span class="pill">Windows</span><span class="pill">Active Directory</span><span class="pill">SMB</span></div></a>
+      <a class="card" data-tags="medium windows lfi deserialization" href="Write-ups/POV/README.md"><div class="card-top"><span class="machine-no">#20</span><span class="difficulty medium">Medium</span></div><h3>POV</h3><p class="date">March 28, 2026</p><div class="meta"><span class="pill">Windows</span><span class="pill">LFI</span><span class="pill">ViewState</span></div></a>
+      <a class="card" data-tags="easy linux web git cve" href="Write-ups/LinkVortex/README.md"><div class="card-top"><span class="machine-no">#21</span><span class="difficulty easy">Easy</span></div><h3>LinkVortex</h3><p class="date">March 30, 2026</p><div class="meta"><span class="pill">Linux</span><span class="pill">Git Disclosure</span><span class="pill">CVE</span></div></a>
+      <a class="card" data-tags="medium windows ad dcsync" href="Write-ups/Administrator/README.md"><div class="card-top"><span class="machine-no">#22</span><span class="difficulty medium">Medium</span></div><h3>Administrator</h3><p class="date">April 18, 2026</p><div class="meta"><span class="pill">Windows</span><span class="pill">Active Directory</span><span class="pill">DCSync</span></div></a>
+    </div>
+
+    <div class="notice">
+      These notes are for educational purposes and only cover retired Hack The Box machines. Please respect platform rules and avoid publishing writeups for active targets.
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <span>Built for GitHub Pages by k41r0s3.</span>
+      <span><a href="README.md">Repository README</a> / <a href="https://k41r0s3.github.io">Portfolio</a></span>
+    </div>
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll('.filter');
+    const cards = document.querySelectorAll('.card');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        buttons.forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+
+        cards.forEach((card) => {
+          const tags = card.dataset.tags.split(' ');
+          const visible = filter === 'all' || tags.includes(filter);
+          card.style.display = visible ? 'flex' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
