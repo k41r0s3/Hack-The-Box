@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Jeeves
+difficulty: Medium
+os: Windows
+category: Web / Jenkins RCE / PrivEsc
+date: 2026-03-19
+permalink: /Write-ups/Jeeves/
+---
+
 # **HackTheBox — Jeeves | Full Writeup**
 
 > **Platform:** Hack The Box
@@ -508,3 +518,4 @@ The Jenkins process ran from `C:\Users\Administrator\.jenkins`, meaning Jenkins 
 ---
 
 *k41r0s3 | HackTheBox — Jeeves*
+

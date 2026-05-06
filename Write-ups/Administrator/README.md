@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Administrator
+difficulty: Medium
+os: Windows
+category: Active Directory / ACL Abuse / DCSync
+date: 2026-04-18
+permalink: /Write-ups/Administrator/
+---
+
 # HackTheBox — Administrator | Full Writeup
 
 > **Platform:** HackTheBox
@@ -377,3 +387,4 @@ Any domain account with `DS-Replication-Get-Changes` and `DS-Replication-Get-Cha
 ---
 
 *Written by k41r0s3 | HackTheBox | Administrator | Medium*
+

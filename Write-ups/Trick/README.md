@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Trick
+difficulty: Easy
+os: Linux
+category: Web / LFI / DNS
+date: 2026-03-17
+permalink: /Write-ups/Trick/
+---
+
 # HackTheBox — Trick
 
 **Difficulty:** Easy  
@@ -554,3 +564,4 @@ fail2ban reads action files at **startup**. If you restart first and inject seco
 ---
 
 *Written by k41r0s3 | HackTheBox | Trick*
+

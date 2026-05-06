@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Support
+difficulty: Easy
+os: Windows
+category: Active Directory / SMB / LDAP / RBCD
+date: 2026-03-27
+permalink: /Write-ups/Support/
+---
+
 # HackTheBox — Support | Full Writeup
 
 > **Platform:** HackTheBox
@@ -322,3 +332,4 @@ Pull everything with no attribute filter. The `info`, `description`, and `commen
 ---
 
 *Written by k41r0s3 | HackTheBox | Support | Easy*
+

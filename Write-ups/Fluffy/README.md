@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Fluffy
+difficulty: Medium
+os: Windows
+category: Active Directory / ADCS / CVE
+date: 2026-03-18
+permalink: /Write-ups/Fluffy/
+---
+
 # HackTheBox — Fluffy
 **Difficulty:** Easy | **OS:** Windows Server 2019
 **Author:** k41r0s3
@@ -858,3 +868,4 @@ type C:\Users\Administrator\Desktop\root.txt → ROOT FLAG ✅
 ---
 
 *Writeup by k41r0s3 — HackTheBox Fluffy (Easy Windows AD)*
+

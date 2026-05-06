@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Artificial
+difficulty: Easy
+os: Linux
+category: AI / PrivEsc
+date: 2026-03-11
+permalink: /Write-ups/Artificial/
+---
+
 # HackTheBox — Artificial
 
 **Difficulty:** Easy | **OS:** Linux | **IP:** 10.129.232.51 
@@ -407,3 +417,4 @@ The JWT secret in `/opt/backrest/jwt-secret` was root-only, but a backup of it e
 | hashcat | Crack MD5 and bcrypt hashes |
 | PyJWT | Forge Backrest authentication JWT |
 | SSH port forwarding | Access internal Backrest web UI |
+

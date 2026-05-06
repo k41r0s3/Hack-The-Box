@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Browsed
+difficulty: Medium
+os: Linux
+category: Web / PrivEsc
+date: 2026-03-09
+permalink: /Write-ups/Browsed/
+---
+
 # Browsed — HackTheBox
 
 > **Difficulty:** Medium
@@ -27,3 +37,4 @@ Once published, this writeup will cover:
 ---
 
 *Stay tuned — k41r0s3* 🚀
+

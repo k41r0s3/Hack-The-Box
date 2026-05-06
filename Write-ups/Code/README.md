@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Code
+difficulty: Easy
+os: Linux
+category: Web
+date: 2026-03-14
+permalink: /Write-ups/Code/
+---
+
 # **HackTheBox — Code | Full Writeup**
 
 > **Platform:** Hack The Box
@@ -524,3 +534,4 @@ The default `"exclude": [".*"]` in `task.json` matched all dotfiles — quietly 
 ---
 
 *Written by k41r0s3 | HackTheBox | Code*
+

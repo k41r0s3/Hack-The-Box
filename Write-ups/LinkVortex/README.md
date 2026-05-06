@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: LinkVortex
+difficulty: Easy
+os: Linux
+category: Web / Git Disclosure / CVE
+date: 2026-03-30
+permalink: /Write-ups/LinkVortex/
+---
+
 # HackTheBox — LinkVortex | Full Writeup
 
 > **Platform:** HackTheBox
@@ -437,3 +447,4 @@ Filters checking for literal strings like `root` or `etc` can be bypassed with l
 ---
 
 *Written by k41r0s3 | HackTheBox | LinkVortex | Easy*
+

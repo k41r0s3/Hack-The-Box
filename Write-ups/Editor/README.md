@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Editor
+difficulty: Easy
+os: Linux
+category: Web / PrivEsc
+date: 2026-03-10
+permalink: /Write-ups/Editor/
+---
+
 # HackTheBox — Editor | Full Writeup
 
 > **Difficulty:** Medium  
@@ -395,3 +405,4 @@ This is a textbook untrusted search path issue. The fix (Netdata v1.45.3) hardco
 ---
 
 *Writeup by k41r0s3 | HackTheBox | Editor*
+

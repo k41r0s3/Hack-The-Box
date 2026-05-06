@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+<main class="shell writeup-shell">
+  <a class="back-link" href="{{ '/' | relative_url }}#writeups">Back to writeups</a>
+
+  <article class="writeup">
+    <aside class="writeup-meta" aria-label="Writeup metadata">
+      <div class="meta-label">Machine</div>
+      <h1>{{ page.title | default: "HTB Writeup" }}</h1>
+
+      <dl>
+        {% if page.difficulty %}
+        <div>
+          <dt>Difficulty</dt>
+          <dd><span class="badge difficulty-{{ page.difficulty | downcase }}">{{ page.difficulty }}</span></dd>
+        </div>
+        {% endif %}
+        {% if page.os %}
+        <div>
+          <dt>OS</dt>
+          <dd>{{ page.os }}</dd>
+        </div>
+        {% endif %}
+        {% if page.category %}
+        <div>
+          <dt>Category</dt>
+          <dd>{{ page.category }}</dd>
+        </div>
+        {% endif %}
+        {% if page.date %}
+        <div>
+          <dt>Date</dt>
+          <dd>{{ page.date | date: "%B %-d, %Y" }}</dd>
+        </div>
+        {% endif %}
+      </dl>
+
+      <div class="reader-note">
+        Retired HTB machines only. These notes are for education, methodology review, and legal lab learning.
+      </div>
+    </aside>
+
+    <div class="writeup-content">
+      {{ content }}
+    </div>
+  </article>
+</main>
+

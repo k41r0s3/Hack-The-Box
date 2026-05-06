@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Postman
+difficulty: Easy
+os: Linux
+category: Misconfiguration / Redis / CVE
+date: 2026-03-18
+permalink: /Write-ups/Postman/
+---
+
 # HTB — Postman
 
 ---
@@ -322,3 +332,4 @@ On HTB easy machines especially, the passphrase for an SSH key and the password 
 ---
 
 *k41r0s3 | HTB Writeup | Postman | March 2026*
+

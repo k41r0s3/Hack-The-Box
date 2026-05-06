@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Titanic
+difficulty: Easy
+os: Linux
+category: Web / LFI / Gitea / CVE
+date: 2026-03-26
+permalink: /Write-ups/Titanic/
+---
+
 
 # HackTheBox — Titanic | Full Writeup
 
@@ -370,3 +380,4 @@ Check for: (1) root process runs `magick`, (2) `cd` into working directory first
 ---
 
 *Written by k41r0s3 | HackTheBox | Titanic | Easy*
+

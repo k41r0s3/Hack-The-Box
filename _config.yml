@@ -1,0 +1,16 @@
+title: Hack The Box Writeups
+description: Retired Hack The Box machine writeups by k41r0s3
+url: "https://k41r0s3.github.io"
+baseurl: "/Hack-The-Box"
+markdown: kramdown
+highlighter: rouge
+
+defaults:
+  - scope:
+      path: "Write-ups"
+    values:
+      layout: writeup
+
+exclude:
+  - .gitignore
+

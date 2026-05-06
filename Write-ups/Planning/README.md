@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Planning
+difficulty: Easy
+os: Linux
+category: Web
+date: 2026-03-03
+permalink: /Write-ups/Planning/
+---
+
 # Planning — HTB Writeup
 
 > **Platform:** Hack The Box
@@ -308,3 +318,4 @@ done && echo "UP!" \
 ---
 
 *k41r0s3*
+

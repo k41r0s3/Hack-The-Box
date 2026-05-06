@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Dog
+difficulty: Easy
+os: Linux
+category: Web / Git Disclosure
+date: 2026-03-17
+permalink: /Write-ups/Dog/
+---
+
 # **HackTheBox — Dog | Full Writeup**
 
 > **Platform:** Hack The Box
@@ -352,3 +362,4 @@ The privesc on this box uses `bee`, the Backdrop CLI tool, rather than a binary 
 ---
 
 *Written by k41r0s3 | HackTheBox | Dog*
+

@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Reset
+difficulty: Easy
+os: Linux
+category: Web / Network
+date: 2026-03-04
+permalink: /Write-ups/Reset/
+---
+
 # Reset — HTB Writeup
 > **Platform:** HackTheBox
 > **Author:** k41r0s3
@@ -260,3 +270,4 @@ cat /root/root_279e22f8.txt
 ---
 
 *k41r0s3*
+

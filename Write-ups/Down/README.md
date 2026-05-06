@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Down
+difficulty: Easy
+os: Linux
+category: Web / SSRF
+date: 2026-03-12
+permalink: /Write-ups/Down/
+---
+
 # **HackTheBox — Down | Full Writeup**
 
 > **Platform:** Hack The Box
@@ -494,3 +504,4 @@ World-readable vault files can be exfiltrated and brute-forced without rate limi
 ---
 
 *Written by k41r0s3 | HackTheBox | Down*
+

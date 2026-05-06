@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Nocturnal
+difficulty: Easy
+os: Linux
+category: Web / Command Injection / CVE
+date: 2026-03-13
+permalink: /Write-ups/Nocturnal/
+---
+
 # **HackTheBox — Nocturnal | Full Writeup**
 
 > **Platform:** Hack The Box
@@ -465,3 +475,4 @@ The ISPConfig admin password was a variation of the credential already recovered
 ---
 
 *Written by k41r0s3 | HackTheBox | Nocturnal*
+

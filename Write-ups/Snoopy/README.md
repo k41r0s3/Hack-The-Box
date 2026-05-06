@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Snoopy
+difficulty: Hard
+os: Linux
+category: LFI / DNS Injection / CVE
+date: 2026-03-20
+permalink: /Write-ups/Snoopy/
+---
+
 # HackTheBox — Snoopy | Full Writeup
 
 > **Platform:** HackTheBox
@@ -634,3 +644,4 @@ Ubuntu 20.04+ uses OpenSSL 3.0 which deprecates `HMAC_CTX` as an opaque type, br
 ---
 
 *Written by k41r0s3 | HackTheBox | Snoopy | Hard*
+

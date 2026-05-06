@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: Data
+difficulty: Easy
+os: Linux
+category: Web / Network
+date: 2026-03-07
+permalink: /Write-ups/Data/
+---
+
 # Data — HTB Writeup
 
 > **Platform:** HackTheBox
@@ -238,3 +248,4 @@ cat /mnt/host/root/root.txt
 ---
 
 *k41r0s3*
+

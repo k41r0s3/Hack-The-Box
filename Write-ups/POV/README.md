@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: POV
+difficulty: Medium
+os: Windows
+category: LFI / ASP.NET ViewState / SeDebugPrivilege
+date: 2026-03-28
+permalink: /Write-ups/POV/
+---
+
 # HackTheBox — POV | Writeup
 
 > **Platform:** HackTheBox
@@ -310,3 +320,4 @@ Running getsystem from a network token context fails across all techniques. The 
 ---
 
 *Written by k41r0s3 | HackTheBox | POV | Medium*
+

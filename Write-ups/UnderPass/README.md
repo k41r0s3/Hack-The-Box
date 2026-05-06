@@ -1,3 +1,13 @@
+﻿---
+layout: writeup
+title: UnderPass
+difficulty: Easy
+os: Linux
+category: SNMP / daloRADIUS / Mosh
+date: 2026-03-26
+permalink: /Write-ups/UnderPass/
+---
+
 # HackTheBox — UnderPass | Full Writeup
 
 > **Platform:** HackTheBox
@@ -305,3 +315,4 @@ Standard gobuster with 50 threads fails on >300ms latency. Use `ffuf -rate 20 -t
 ---
 
 *Written by k41r0s3 | HackTheBox | UnderPass | Easy*
+
