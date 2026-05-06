@@ -1,4 +1,4 @@
-﻿---
+---
 layout: writeup
 title: Jeeves
 difficulty: Medium

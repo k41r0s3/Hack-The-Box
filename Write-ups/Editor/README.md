@@ -1,4 +1,4 @@
-﻿---
+---
 layout: writeup
 title: Editor
 difficulty: Easy
