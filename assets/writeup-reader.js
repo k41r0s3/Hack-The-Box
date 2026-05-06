@@ -20,9 +20,18 @@ function renderFallback(markdown) {
 
 async function loadWriteup() {
   try {
-    const response = await fetch("README.md", { cache: "no-store" });
-    if (!response.ok) throw new Error(`Unable to load README.md (${response.status})`);
-    const markdown = stripFrontMatter(await response.text());
+    const embedded = document.querySelector("[data-source-markdown]");
+    let markdown;
+
+    if (embedded) {
+      markdown = embedded.textContent;
+    } else {
+      const response = await fetch("README.md", { cache: "no-store" });
+      if (!response.ok) throw new Error(`Unable to load README.md (${response.status})`);
+      markdown = await response.text();
+    }
+
+    markdown = stripFrontMatter(markdown.trimStart());
     content.innerHTML = window.marked ? marked.parse(markdown) : renderFallback(markdown);
 
     if (window.hljs) {
@@ -42,4 +51,3 @@ document.querySelector("[data-category]").textContent = meta.category || "Genera
 document.querySelector("[data-date]").textContent = meta.date || "Undated";
 
 loadWriteup();
-
